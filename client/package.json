@@ -1,5 +1,5 @@
 {
-  "name": "sda",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    // export SET NODE_OPTIONS=--openssl-legacy-provider
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
