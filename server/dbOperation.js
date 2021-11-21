@@ -4,8 +4,10 @@ const config = require('./dbconfig');
 const getData = async () => {
   try {
     const pool = await sql.connect(config);
-    const result = await pool.request().query('select * from dbo.AIRWAYS');
-    console.log(result);
+    const result = await pool
+      .request()
+      .query('select ruteterbeli from dbo.LAYANAN');
+    return result.recordset;
   } catch (err) {
     console.log(err);
   }
