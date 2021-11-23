@@ -17,5 +17,3 @@ app.get('/api/get', (req, res) => {
 app.listen(3001, () => {
   console.log('Server started on port 3001');
 });
-
-// export SET NODE_OPTIONS=--openssl-legacy-provider

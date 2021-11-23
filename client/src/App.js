@@ -4,19 +4,25 @@ import Axios from 'axios';
 
 function App() {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     Axios.get('http://localhost:3001/api/get').then((response) => {
       setData(response.data);
-      console.log(data);
     });
   }, []);
+  const ruteTerbeli = () => {
+    let rute = [];
+    data.forEach((item) => {
+      rute.push(item.RuteTerbeli);
+    });
+    return rute;
+  };
+  console.log(ruteTerbeli());
   return (
     <div className="App">
-      <p>Kenapa</p>
-      {data.map((item) => {
-        return <p>{item.RuteTerbeli}</p>;
+      {ruteTerbeli().map((item) => {
+        return <p>{item}</p>;
       })}
+      <p>Kenapa</p>
     </div>
   );
 }

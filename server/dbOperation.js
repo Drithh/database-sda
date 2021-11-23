@@ -6,7 +6,7 @@ const getData = async () => {
     const pool = await sql.connect(config);
     const result = await pool
       .request()
-      .query('select ruteterbeli from dbo.LAYANAN');
+      .query('select RuteTerbeli from dbo.LAYANAN');
     return result.recordset;
   } catch (err) {
     console.log(err);
