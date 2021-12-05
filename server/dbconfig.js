@@ -2,7 +2,7 @@ const config = {
   user: 'web',
   password: 'Kenapa03,',
   server: 'localhost',
-  database: 'QUIZ4',
+  database: 'PENERBANGAN',
   options: {
     trustedConnection: true,
     trustServerCertificate: true,

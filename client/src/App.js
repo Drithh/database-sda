@@ -5,7 +5,6 @@ import {
   Route,
   useLocation,
 } from 'react-router-dom';
-import './App.css';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.js';
 import Crud from './components/crud.js';

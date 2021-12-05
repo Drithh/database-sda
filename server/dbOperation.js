@@ -1,16 +1,18 @@
 const sql = require('mssql');
 const config = require('./dbconfig');
 
-const getData = async () => {
+const getTableName = async () => {
   try {
     const pool = await sql.connect(config);
     const result = await pool
       .request()
-      .query('select RuteTerbeli from dbo.LAYANAN');
+      .query(
+        "SELECT NAME FROM PENERBANGAN.sys.objects WHERE type_desc = 'USER_TABLE'"
+      );
     return result.recordset;
   } catch (err) {
     console.log(err);
   }
 };
 
-module.exports = { getData };
+module.exports = { getTableName };

@@ -8,9 +8,9 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/get', (req, res) => {
-  dbOperation.getData().then((result) => {
-    res.send(result);   
+app.get('/api/getTableName', (req, res) => {
+  dbOperation.getTableName().then((result) => {
+    res.send(result.map((tableName) => Object.values(tableName)[0]));
   });
 });
 

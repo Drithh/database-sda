@@ -1,16 +1,13 @@
 import { motion } from 'framer-motion';
-
-const pageTransition = {
-  duration: 0.5,
-  type: 'tween',
-};
+import { pageTransition, variants } from './motion';
 
 const Home = () => {
   return (
     <motion.div
-      initial={{ x: '-1048px' }}
-      animate={{ x: 0 }}
-      exit={{ x: '-1048px' }}
+      initial="init"
+      animate="in"
+      exit="out"
+      variants={variants}
       transition={pageTransition}
     >
       <h1>Home</h1>
