@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "d3": "^7.1.1",
+    "framer-motion": "^4.1.17",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.0.2",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.8",
+    "cross-env": "^7.0.3",
     "postcss": "^7.0.39",
     "stylelint-config-standard": "^24.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"

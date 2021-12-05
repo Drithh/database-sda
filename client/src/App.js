@@ -1,42 +1,49 @@
 // import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import './App.css';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.js';
 import Crud from './components/crud.js';
 import Home from './components/home.js';
 // import Axios from 'axios';
-
+// const [data, setData] = useState([]);
+// useEffect(() => {
+//   Axios.get('http://localhost:3001/api/get').then((response) => {
+//     setData(response.data);
+//   });
+// }, []);
+// const ruteTerbeli = () => {
+//   let rute = [];
+//   data.forEach((item) => {
+//     rute.push(item.RuteTerbeli);
+//   });
+//   return rute;
+// };
+// {ruteTerbeli().map((item) => {
+//   return <p>{item}</p>;
+// })}
 function App() {
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   Axios.get('http://localhost:3001/api/get').then((response) => {
-  //     setData(response.data);
-  //   });
-  // }, []);
-  // const ruteTerbeli = () => {
-  //   let rute = [];
-  //   data.forEach((item) => {
-  //     rute.push(item.RuteTerbeli);
-  //   });
-  //   return rute;
-  // };
-  // {ruteTerbeli().map((item) => {
-  //   return <p>{item}</p>;
-  // })}
+  const location = useLocation();
 
   return (
-    <Router>
-      <div className="w-screen max-w-screen-lg m-auto">
-        <Navbar />
-        <AnimatePresence>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/crud" element={<Crud />} />
-          </Routes>
-        </AnimatePresence>
+    <div className="App relative z-0 overflow-x-hidden">
+      <div className=" border-l-[calc((100vw-1048px)/2)] border-r-[calc((100vw-1048px)/2)] border-white pointer-events-none">
+        <div className="w-screen max-w-screen-lg m-auto relative z-[-1] pointer-events-auto">
+          <Navbar />
+          <AnimatePresence exitBeforeEnter>
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/crud" element={<Crud />} />
+            </Routes>
+          </AnimatePresence>
+        </div>
       </div>
-    </Router>
+    </div>
   );
 }
 

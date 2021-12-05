@@ -1,6 +1,18 @@
+import { motion } from 'framer-motion';
+
+const pageTransition = {
+  duration: 0.5,
+  type: 'tween',
+};
+
 const Crud = () => {
   return (
-    <div>
+    <motion.div
+      initial={{ x: '1048px' }}
+      animate={{ x: 0 }}
+      exit={{ x: '1048px' }}
+      transition={pageTransition}
+    >
       <h1>CRUD</h1>
       <p>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates
@@ -93,7 +105,7 @@ const Crud = () => {
         dolorem excepturi illo accusantium accusamus nemo impedit nisi sequi
         suscipit! Sint, omnis.
       </p>
-    </div>
+    </motion.div>
   );
 };
 

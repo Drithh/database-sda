@@ -1,6 +1,18 @@
+import { motion } from 'framer-motion';
+
+const pageTransition = {
+  duration: 0.5,
+  type: 'tween',
+};
+
 const Home = () => {
   return (
-    <div>
+    <motion.div
+      initial={{ x: '-1048px' }}
+      animate={{ x: 0 }}
+      exit={{ x: '-1048px' }}
+      transition={pageTransition}
+    >
       <h1>Home</h1>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione eum
@@ -94,7 +106,7 @@ const Home = () => {
         libero vitae architecto iste tempore corporis odio asperiores incidunt
         fugit officia, suscipit accusamus?
       </p>
-    </div>
+    </motion.div>
   );
 };
 
