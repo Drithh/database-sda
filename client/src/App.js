@@ -1,19 +1,11 @@
 // import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.js';
 import Crud from './components/crud.js';
 import Home from './components/home.js';
-// import Axios from 'axios';
-
 function App() {
   const location = useLocation();
-
   return (
     <div className="App relative z-0 overflow-x-hidden">
       <div className=" border-l-[calc((100vw-1048px)/2)] border-r-[calc((100vw-1048px)/2)] border-white pointer-events-none">

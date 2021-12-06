@@ -1,4 +1,4 @@
-import MaterialTable from 'material-table';
+import MaterialTable from '@material-table/core';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 // import tableIcons from './materialtableicon';
@@ -27,7 +27,7 @@ const BasicTable = () => {
       title="Basic Table"
       // icons={tableIcons}
       columns={columns}
-      // data={data}
+      data={data}
       options={{ sorting: true }}
       action={[
         {
