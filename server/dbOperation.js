@@ -15,4 +15,14 @@ const getTableName = async () => {
   }
 };
 
-module.exports = { getTableName };
+const getTable = async (tableName) => {
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request().query('SELECT * FROM ' + tableName);
+    return result.recordset;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { getTableName, getTable };

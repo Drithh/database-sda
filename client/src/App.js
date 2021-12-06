@@ -10,22 +10,7 @@ import Navbar from './components/Navbar.js';
 import Crud from './components/crud.js';
 import Home from './components/home.js';
 // import Axios from 'axios';
-// const [data, setData] = useState([]);
-// useEffect(() => {
-//   Axios.get('http://localhost:3001/api/get').then((response) => {
-//     setData(response.data);
-//   });
-// }, []);
-// const ruteTerbeli = () => {
-//   let rute = [];
-//   data.forEach((item) => {
-//     rute.push(item.RuteTerbeli);
-//   });
-//   return rute;
-// };
-// {ruteTerbeli().map((item) => {
-//   return <p>{item}</p>;
-// })}
+
 function App() {
   const location = useLocation();
 
