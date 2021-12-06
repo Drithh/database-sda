@@ -20,6 +20,39 @@ app.get('/api/get/table/:tableName', (req, res) => {
   });
 });
 
+app.post('/api/post/insert/:tableName', (req, res) => {
+  dbOperation
+    .insertRow(req.params.tableName, req.body)
+    .then(() => {
+      res.send('1');
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.post('/api/post/delete/:tableName', (req, res) => {
+  dbOperation
+    .deleteRow(req.params.tableName, req.body)
+    .then(() => {
+      res.send('1');
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.post('/api/post/update/:tableName', (req, res) => {
+  dbOperation
+    .updateRow(req.params.tableName, req.body)
+    .then(() => {
+      res.send('1');
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.listen(3001, () => {
   console.log('Server started on port 3001');
 });

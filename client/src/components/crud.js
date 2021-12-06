@@ -11,7 +11,6 @@ const Crud = () => {
       variants={variants}
       transition={pageTransition}
     >
-      <h1>CRUD</h1>
       <BasicTable />
     </motion.div>
   );
