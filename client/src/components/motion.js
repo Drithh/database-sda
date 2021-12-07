@@ -4,7 +4,7 @@ export const pageTransition = {
 };
 
 export const variants = {
-  init: { opacity: 0.5, x: '1048px' },
+  init: { opacity: 0.5, x: '1024px' },
   in: { opacity: 1, x: 0 },
-  out: { opacity: 0.5, x: '-1048px' },
+  out: { opacity: 0.5, x: '-1024px' },
 };

@@ -1,5 +1,12 @@
 import MaterialTable from '@material-table/core';
+import { Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
+import * as React from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import Axios from 'axios';
 
 const failedMessage = (message) => {
@@ -12,29 +19,80 @@ const failedMessage = (message) => {
   return 'Query Failed\n' + failedMessage;
 };
 
-const BasicTable = () => {
-  const [data, setData] = useState([]);
-  const [columns, setColumns] = useState([]);
+const GetTableName = () => {
+  const [tableNames, setTableNames] = useState([]);
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/get/table/KOTA').then((response) => {
-      setColumns(
-        Object.keys(response.data[0]).map((key) => {
-          return {
-            title: key,
-            field: key,
-          };
-        })
-      );
-      setData(response.data);
+    Axios.get('http://localhost:3001/api/get/table-name').then((response) => {
+      setTableNames(response.data.filter((x) => !x.includes('sysdiagrams')));
     });
   }, []);
+  return tableNames;
+};
+
+const BasicTable = () => {
+  let tableNames = GetTableName();
+  const [data, setData] = useState([]);
+  const [columns, setColumns] = useState([]);
+  const [tableName, setTableName] = useState('AIRWAYS');
+  useEffect(() => {
+    Axios.get('http://localhost:3001/api/get/table/' + tableName).then(
+      (response) => {
+        setColumns(
+          Object.keys(response.data[0]).map((key) => {
+            return {
+              title: key,
+              field: key,
+            };
+          })
+        );
+        setData(response.data);
+      }
+    );
+  }, [tableName]);
 
   return (
     <MaterialTable
-      title="Basic Table"
+      title={
+        <FormControl
+          variant="standard"
+          size="small"
+          sx={{ m: 0.5, minWidth: 120 }}
+          hideBackdrop={true}
+        >
+          <Select
+            hideBackdrop={true}
+            value={tableName}
+            sx={{ minWidth: 220 }}
+            onChange={(value) => {
+              setTableName(value.target.value);
+            }}
+          >
+            {tableNames.map((x) => (
+              <MenuItem key={x} value={x}>
+                {x
+                  .replaceAll('_', ' ')
+                  .toLowerCase()
+                  .split(' ')
+                  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                  .join(' ')}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      }
       columns={columns}
       data={data}
+      components={{
+        Container: (props) => <Paper {...props} elevation={0} />,
+      }}
       options={{
+        headerStyle: {
+          fontFamily: 'Source Sans Pro',
+          fontWeight: 600,
+        },
+        rowStyle: {
+          fontFamily: 'Source Sans Pro',
+        },
         sorting: true,
         actionsColumnIndex: -1,
         addRowPosition: 'first',
@@ -44,7 +102,7 @@ const BasicTable = () => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
               Axios.post(
-                'http://localhost:3001/api/post/insert/KOTA',
+                'http://localhost:3001/api/post/insert/' + tableName,
                 newData
               ).then((response) => {
                 if (response.data === 1) {
@@ -64,7 +122,7 @@ const BasicTable = () => {
             const index = oldData.tableData.id;
             setTimeout(() => {
               Axios.post(
-                'http://localhost:3001/api/post/delete/KOTA',
+                'http://localhost:3001/api/post/delete/' + tableName,
                 oldData
               ).then((response) => {
                 if (response.data === 1) {
@@ -82,11 +140,10 @@ const BasicTable = () => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post('http://localhost:3001/api/post/update/KOTA', [
+              Axios.post('http://localhost:3001/api/post/update/' + tableName, [
                 newData,
                 oldData,
               ]).then((response) => {
-                console.log(newData, oldData);
                 if (response.data === 1) {
                   const dataUpdate = [...data];
                   const index = oldData.tableData.id;
