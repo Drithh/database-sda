@@ -2,11 +2,6 @@ import MaterialTable from '@material-table/core';
 import { Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Axios from 'axios';
 
 const failedMessage = (message) => {
@@ -53,32 +48,24 @@ const BasicTable = () => {
   return (
     <MaterialTable
       title={
-        <FormControl
-          variant="standard"
-          size="small"
-          sx={{ m: 0.5, minWidth: 120 }}
-          hideBackdrop={true}
-        >
-          <Select
-            hideBackdrop={true}
+        <label className="block text-left max-w-md w-60 relative left-[-5px]">
+          <select
+            className="form-select block w-full mt-1 text-lg font-semibold focus:outline-none outline-none "
             value={tableName}
-            sx={{ minWidth: 220 }}
-            onChange={(value) => {
-              setTableName(value.target.value);
-            }}
+            onChange={(value) => setTableName(value.target.value)}
           >
             {tableNames.map((x) => (
-              <MenuItem key={x} value={x}>
+              <option key={x} value={x} className="bg-transparent">
                 {x
                   .replaceAll('_', ' ')
                   .toLowerCase()
                   .split(' ')
                   .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                   .join(' ')}
-              </MenuItem>
+              </option>
             ))}
-          </Select>
-        </FormControl>
+          </select>
+        </label>
       }
       columns={columns}
       data={data}
@@ -91,6 +78,7 @@ const BasicTable = () => {
           fontWeight: 600,
         },
         rowStyle: {
+          opacity: 0.7,
           fontFamily: 'Source Sans Pro',
         },
         sorting: true,
