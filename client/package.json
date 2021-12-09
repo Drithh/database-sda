@@ -29,7 +29,7 @@
     "build": "set HTTPS=true && craco --openssl-legacy-provider  build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "static": "http-server -p 0 -S build"
+    "static": "http-server -p 0 build"
   },
   "eslintConfig": {
     "extends": [
