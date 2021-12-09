@@ -18,7 +18,6 @@ const GetTableName = () => {
   const [tableNames, setTableNames] = useState([]);
   useEffect(() => {
     Axios.get('http://localhost:8081/api/get/table-name').then((response) => {
-      console.log('asdasdas');
       setTableNames(response.data.filter((x) => !x.includes('sysdiagrams')));
     });
   }, []);
@@ -27,14 +26,12 @@ const GetTableName = () => {
 
 const BasicTable = () => {
   let tableNames = GetTableName();
-  console.log(tableNames);
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [tableName, setTableName] = useState('WILAYAH');
   useEffect(() => {
     Axios.get('http://localhost:8081/api/get/table/' + tableName).then(
       (response) => {
-        console.log(response.data);
         setColumns(
           Object.keys(response.data[0]).map((key) => {
             return {

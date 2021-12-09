@@ -1,6 +1,6 @@
 FROM node
 
-RUN npm install -g http-server
+RUN npm install -g serve
 
 WORKDIR /client
 
@@ -13,4 +13,4 @@ COPY . /client/
 RUN npm run build
 
 EXPOSE 8080
-CMD ["http-server", "build"]
+CMD ["npm", "run", "static"]

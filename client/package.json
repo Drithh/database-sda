@@ -27,7 +27,8 @@
     "start": "cross-env TAILWIND_MODE=watch craco --openssl-legacy-provider start",
     "build": "craco --openssl-legacy-provider build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "static": "serve -l 8080 build"
   },
   "eslintConfig": {
     "extends": [
