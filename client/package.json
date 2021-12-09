@@ -16,9 +16,9 @@
     "axios": "^0.24.0",
     "d3": "^7.1.1",
     "framer-motion": "^4.1.17",
+    "http-server": "^14.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-https-redirect": "^1.1.0",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
     "web-vitals": "^1.1.2"
@@ -26,10 +26,10 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "cross-env TAILWIND_MODE=watch craco --openssl-legacy-provider start",
-    "build": "craco --openssl-legacy-provider build",
+    "build": "set HTTPS=true && craco --openssl-legacy-provider  build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "static": "serve -l 8080 build"
+    "static": "http-server -p 0 -S build"
   },
   "eslintConfig": {
     "extends": [
