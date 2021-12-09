@@ -15,4 +15,4 @@ jobs:
       - name: Build the Docker image
         run: docker-compose build
       - name: test
-        run: docker-compose -d up
+        run: docker-compose up -d
