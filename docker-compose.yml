@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  client:
+    container_name: client
+    restart: always
+    build: ./client
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+  api:
+    container_name: api
+    restart: always
+    build: ./server
+    environment:
+       - DATABASE_PUBLIC_URL=db
+    ports:
+      - "8081:8081"
+    depends_on:
+      - server
+  server:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    expose:
+      - 1433
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Kenapa03,"
+      SA_USER: sa
+      ACCEPT_EULA: "y"
+
+
+      

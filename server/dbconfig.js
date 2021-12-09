@@ -1,8 +1,8 @@
 const config = {
   user: 'web',
   password: 'Kenapa03,',
-  server: 'localhost',
-  database: 'PENERBANGAN',
+  server: 'db',
+  database: 'DATAVERSE',
   options: {
     trustedConnection: true,
     trustServerCertificate: true,

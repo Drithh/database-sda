@@ -17,7 +17,8 @@ const failedMessage = (message) => {
 const GetTableName = () => {
   const [tableNames, setTableNames] = useState([]);
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/get/table-name').then((response) => {
+    Axios.get('http://localhost:8081/api/get/table-name').then((response) => {
+      console.log('asdasdas');
       setTableNames(response.data.filter((x) => !x.includes('sysdiagrams')));
     });
   }, []);
@@ -26,12 +27,14 @@ const GetTableName = () => {
 
 const BasicTable = () => {
   let tableNames = GetTableName();
+  console.log(tableNames);
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
-  const [tableName, setTableName] = useState('AIRWAYS');
+  const [tableName, setTableName] = useState('WILAYAH');
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/get/table/' + tableName).then(
+    Axios.get('http://localhost:8081/api/get/table/' + tableName).then(
       (response) => {
+        console.log(response.data);
         setColumns(
           Object.keys(response.data[0]).map((key) => {
             return {
@@ -90,7 +93,7 @@ const BasicTable = () => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
               Axios.post(
-                'http://localhost:3001/api/post/insert/' + tableName,
+                'http://localhost:8081/api/post/insert/' + tableName,
                 newData
               ).then((response) => {
                 if (response.data === 1) {
@@ -110,7 +113,7 @@ const BasicTable = () => {
             const index = oldData.tableData.id;
             setTimeout(() => {
               Axios.post(
-                'http://localhost:3001/api/post/delete/' + tableName,
+                'http://localhost:8081/api/post/delete/' + tableName,
                 oldData
               ).then((response) => {
                 if (response.data === 1) {
@@ -128,7 +131,7 @@ const BasicTable = () => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post('http://localhost:3001/api/post/update/' + tableName, [
+              Axios.post('http://localhost:8081/api/post/update/' + tableName, [
                 newData,
                 oldData,
               ]).then((response) => {

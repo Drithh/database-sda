@@ -7,7 +7,9 @@ const getTableName = async () => {
     const result = await pool
       .request()
       .query(
-        "SELECT NAME FROM PENERBANGAN.sys.objects WHERE type_desc = 'USER_TABLE'"
+        'SELECT NAME FROM ' +
+          config.database +
+          ".sys.objects WHERE type_desc = 'USER_TABLE'"
       );
     return result.recordset;
   } catch (err) {

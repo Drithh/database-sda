@@ -53,6 +53,6 @@ app.post('/api/post/update/:tableName', (req, res) => {
     });
 });
 
-app.listen(3001, () => {
-  console.log('Server started on port 3001');
+app.listen(8081, () => {
+  console.log('Server started on port 8081');
 });
