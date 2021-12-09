@@ -17,7 +17,9 @@ const failedMessage = (message) => {
 const GetTableName = () => {
   const [tableNames, setTableNames] = useState([]);
   useEffect(() => {
-    Axios.get('http://localhost:8081/api/get/table-name').then((response) => {
+    Axios.get(
+      'http://' + window.location.hostname + ':8081/api/get/table-name'
+    ).then((response) => {
       setTableNames(response.data.filter((x) => !x.includes('sysdiagrams')));
     });
   }, []);
@@ -30,19 +32,19 @@ const BasicTable = () => {
   const [columns, setColumns] = useState([]);
   const [tableName, setTableName] = useState('WILAYAH');
   useEffect(() => {
-    Axios.get('http://localhost:8081/api/get/table/' + tableName).then(
-      (response) => {
-        setColumns(
-          Object.keys(response.data[0]).map((key) => {
-            return {
-              title: key,
-              field: key,
-            };
-          })
-        );
-        setData(response.data);
-      }
-    );
+    Axios.get(
+      'http://' + window.location.hostname + ':8081/api/get/table/' + tableName
+    ).then((response) => {
+      setColumns(
+        Object.keys(response.data[0]).map((key) => {
+          return {
+            title: key,
+            field: key,
+          };
+        })
+      );
+      setData(response.data);
+    });
   }, [tableName]);
 
   return (
@@ -90,7 +92,10 @@ const BasicTable = () => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
               Axios.post(
-                'http://localhost:8081/api/post/insert/' + tableName,
+                'http://' +
+                  window.location.hostname +
+                  ':8081/api/post/insert/' +
+                  tableName,
                 newData
               ).then((response) => {
                 if (response.data === 1) {
@@ -110,7 +115,10 @@ const BasicTable = () => {
             const index = oldData.tableData.id;
             setTimeout(() => {
               Axios.post(
-                'http://localhost:8081/api/post/delete/' + tableName,
+                'http://' +
+                  window.location.hostname +
+                  ':8081/api/post/delete/' +
+                  tableName,
                 oldData
               ).then((response) => {
                 if (response.data === 1) {
@@ -128,10 +136,13 @@ const BasicTable = () => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post('http://localhost:8081/api/post/update/' + tableName, [
-                newData,
-                oldData,
-              ]).then((response) => {
+              Axios.post(
+                'http://' +
+                  window.location.hostname +
+                  ':8081/api/post/update/' +
+                  tableName,
+                [newData, oldData]
+              ).then((response) => {
                 if (response.data === 1) {
                   const dataUpdate = [...data];
                   const index = oldData.tableData.id;
