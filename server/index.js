@@ -3,6 +3,12 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const dbOperation = require('./dbOperation');
+const https = require('https');
+
+const httpsOptions = {
+  cert: fs.readFileSync('/root/cert.pem'),
+  key: fs.readFileSync('/root/key.pem'),
+};
 
 app.use(cors());
 app.use(express.json());
@@ -53,6 +59,4 @@ app.post('/api/post/update/:tableName', (req, res) => {
     });
 });
 
-app.listen(8081, () => {
-  console.log('Server started on port 8081');
-});
+https.createServer(httpsOptions, app).listen(8081);
