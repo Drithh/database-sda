@@ -4,10 +4,11 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.js';
 import Crud from './components/crud.js';
 import Home from './components/home.js';
+import Footer from './components/footer.js';
 function App() {
   const location = useLocation();
   return (
-    <div className="App relative z-0 overflow-x-hidden">
+    <div className="App relative z-0 overflow-x-hidden min-h-screen">
       <div className=" border-l-[calc((100vw-1048px)/2)] border-r-[calc((100vw-1048px)/2)] border-white pointer-events-none">
         <div className="w-screen max-w-screen-lg m-auto relative z-[-1] pointer-events-auto">
           <Navbar />
@@ -19,6 +20,7 @@ function App() {
           </AnimatePresence>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
