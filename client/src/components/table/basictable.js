@@ -5,7 +5,7 @@ import * as React from 'react';
 import Axios from 'axios';
 
 // const url = 'http://' + window.location.hostname + ':8081/';
-const url = 'api.apasih.site';
+const url = 'https://api.apasih.site/';
 
 const failedMessage = (message) => {
   let failedMessage = JSON.stringify(message);

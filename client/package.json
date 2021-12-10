@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "d3": "^7.1.1",
+    "dotenv": "^10.0.0",
     "framer-motion": "^4.1.17",
     "http-server": "^14.0.0",
     "react": "^17.0.2",
@@ -29,7 +30,7 @@
     "build": "craco --openssl-legacy-provider  build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "static": "http-server -p 0 build"
+    "static": "http-server --cors true build"
   },
   "eslintConfig": {
     "extends": [
