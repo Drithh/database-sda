@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import * as React from 'react';
 import Axios from 'axios';
 
+// const url = 'http://' + window.location.hostname + ':8081/';
+const url = 'api.apasih.site';
+
 const failedMessage = (message) => {
   let failedMessage = JSON.stringify(message);
   failedMessage = failedMessage.match('duplicate')
@@ -17,9 +20,7 @@ const failedMessage = (message) => {
 const GetTableName = () => {
   const [tableNames, setTableNames] = useState([]);
   useEffect(() => {
-    Axios.get(
-      'http://' + window.location.hostname + ':8081/api/get/table-name'
-    ).then((response) => {
+    Axios.get(url + 'get/table-name').then((response) => {
       setTableNames(response.data.filter((x) => !x.includes('sysdiagrams')));
     });
   }, []);
@@ -32,9 +33,7 @@ const BasicTable = () => {
   const [columns, setColumns] = useState([]);
   const [tableName, setTableName] = useState('WILAYAH');
   useEffect(() => {
-    Axios.get(
-      'http://' + window.location.hostname + ':8081/api/get/table/' + tableName
-    ).then((response) => {
+    Axios.get(url + 'get/table/' + tableName).then((response) => {
       setColumns(
         Object.keys(response.data[0]).map((key) => {
           return {
@@ -91,22 +90,18 @@ const BasicTable = () => {
         onRowAdd: (newData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post(
-                'http://' +
-                  window.location.hostname +
-                  ':8081/api/post/insert/' +
-                  tableName,
-                newData
-              ).then((response) => {
-                if (response.data === 1) {
-                  setData([...data, newData]);
-                  alert('success');
-                  resolve();
-                } else {
-                  alert(failedMessage(response.data));
-                  reject();
+              Axios.post(url + 'post/insert/' + tableName, newData).then(
+                (response) => {
+                  if (response.data === 1) {
+                    setData([...data, newData]);
+                    alert('success');
+                    resolve();
+                  } else {
+                    alert(failedMessage(response.data));
+                    reject();
+                  }
                 }
-              });
+              );
             }, 1000);
           });
         },
@@ -114,35 +109,28 @@ const BasicTable = () => {
           return new Promise((resolve, reject) => {
             const index = oldData.tableData.id;
             setTimeout(() => {
-              Axios.post(
-                'http://' +
-                  window.location.hostname +
-                  ':8081/api/post/delete/' +
-                  tableName,
-                oldData
-              ).then((response) => {
-                if (response.data === 1) {
-                  setData(data.filter((row, i) => i !== index));
-                  alert('success');
-                  resolve();
-                } else {
-                  alert(failedMessage(response.data));
-                  reject();
+              Axios.post(url + 'post/delete/' + tableName, oldData).then(
+                (response) => {
+                  if (response.data === 1) {
+                    setData(data.filter((row, i) => i !== index));
+                    alert('success');
+                    resolve();
+                  } else {
+                    alert(failedMessage(response.data));
+                    reject();
+                  }
                 }
-              });
+              );
             }, 1000);
           });
         },
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post(
-                'http://' +
-                  window.location.hostname +
-                  ':8081/api/post/update/' +
-                  tableName,
-                [newData, oldData]
-              ).then((response) => {
+              Axios.post(url + 'post/update/' + tableName, [
+                newData,
+                oldData,
+              ]).then((response) => {
                 if (response.data === 1) {
                   const dataUpdate = [...data];
                   const index = oldData.tableData.id;
