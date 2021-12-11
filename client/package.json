@@ -53,6 +53,7 @@
   "devDependencies": {
     "autoprefixer": "^9.8.8",
     "cross-env": "^7.0.3",
+    "immer": ">=9.0.6",
     "postcss": "^7.0.39",
     "stylelint-config-standard": "^24.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
