@@ -13,7 +13,12 @@ const Home = () => {
       transition={pageTransition}
     >
       <div className="w-[1024px] m-auto">
-        <D3BarGraph />
+        <div className="BarGraph border-b border-t border-solid border-secondary border-opacity-50">
+          <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
+            POTENSI MINERAL INDONESIA
+          </h2>
+          <D3BarGraph />
+        </div>
       </div>
     </motion.div>
   );

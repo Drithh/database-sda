@@ -8,6 +8,7 @@ import {
   scaleLinear,
   stack,
   max,
+  pointer,
 } from 'd3';
 
 export const StackedBarGraph = ({ datasets, keys, colors }) => {
@@ -101,6 +102,41 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
         });
         setData(filteredD);
       });
+
+    svg
+      .selectAll('rect')
+      .on('mouseenter', (e, d) => {
+        svg.selectAll('rect').attr('opacity', '0.7');
+        select(e.target).attr('opacity', '1');
+        tooltip.style('display', null);
+        tooltip.select('text').text(d[1] - d[0]);
+      })
+      .on('mouseleave', (e) => {
+        svg.selectAll('rect').attr('opacity', '1');
+        tooltip.style('display', 'none');
+      })
+      .on('mousemove', (event, e) => {
+        tooltip.select('#valueTooltip').text('Kenapa');
+        var coordinates = pointer(event);
+        var x = coordinates[0];
+        var y = coordinates[1];
+
+        tooltip.attr('transform', 'translate(' + x + ',' + y + ')');
+      });
+
+    var tooltip = svg
+      .append('g')
+      .attr('class', 'tooltip')
+      .style('display', 'none');
+
+    tooltip
+      .append('text')
+      .text('')
+      .attr('x', '0rem')
+      .attr('dy', '-0.5rem')
+      .style('text-anchor', 'middle')
+      .attr('font-size', '14px')
+      .attr('font-weight', 'bold');
   }, [data, keys, colors]);
 
   return (

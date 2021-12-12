@@ -96,10 +96,7 @@ export const D3BarGraph = () => {
   const [keys, setKeys] = useState(allKeys);
 
   return (
-    <div className="border-b border-t border-solid border-secondary border-opacity-50">
-      <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
-        POTENSI MINERAL INDONESIA
-      </h2>
+    <div className="">
       <StackedBarGraph datasets={data} colors={colors} keys={keys} />
       <div className="fields m-auto  flex justify-evenly h-12 ">
         {allKeys.map((key) => (
