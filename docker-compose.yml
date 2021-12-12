@@ -26,7 +26,7 @@ services:
     ports:
       - "1433:1433"
     environment:
-      SA_PASSWORD: "Kenapa03,"
+      SA_PASSWORD: ${DB_PASSWORD}
       SA_USER: sa
       ACCEPT_EULA: "y"
 
