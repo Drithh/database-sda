@@ -7,6 +7,7 @@ module.exports = {
       fontFamily: {
         PT: ['PT Sans', 'sans-serif'],
         Josefin: ['Josefin Sans', 'sans-serif'],
+        Source: ['Source Sans Pro', 'sans-serif'],
       },
       colors: {
         primary: '#424242',

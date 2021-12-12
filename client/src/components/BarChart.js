@@ -65,7 +65,7 @@ const data = [
     Makan: 40,
     Minum: 10,
     Mabar: 16,
-    Siapa: 10,
+    Siapa: 200,
     Kenapa: 13,
   },
 ];
@@ -82,25 +82,28 @@ const allKeys = [
 ];
 
 const colors = {
-  Affiliate: 'rgba(69, 0, 0, 1)',
-  Social: 'rgba(240, 72, 19, 1)',
-  Media: 'rgba(255, 199, 128, 1)',
-  Makan: 'rgba(200, 199, 128, 1)',
-  Minum: 'rgba(50, 199, 128, 1)',
-  Mabar: 'rgba(155, 199, 128, 1)',
-  Siapa: 'rgba(255, 99, 128, 1)',
-  Kenapa: 'rgba(255, 199, 28, 1)',
+  Affiliate: '#CFCBC9',
+  Social: '#ECE8DB',
+  Media: '#C1CCCA',
+  Makan: '#AEBCC4',
+  Minum: '#D3CBC7',
+  Mabar: '#E1DACC',
+  Siapa: '#F7F3E7',
+  Kenapa: '#CFCFC3',
 };
 
 export const D3BarGraph = () => {
   const [keys, setKeys] = useState(allKeys);
 
   return (
-    <div>
+    <div className="border-b border-t border-solid border-secondary border-opacity-50">
+      <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
+        POTENSI MINERAL INDONESIA
+      </h2>
       <StackedBarGraph datasets={data} colors={colors} keys={keys} />
-      <div className="fields m-auto  flex justify-evenly h-12 border-b border-solid border-secondary border-opacity-50">
+      <div className="fields m-auto  flex justify-evenly h-12 ">
         {allKeys.map((key) => (
-          <div key={key} className="field flex font-PT font-light">
+          <div key={key} className="field flex font-Source font-light">
             <input
               className="relative top-[.4rem]"
               id={key}
