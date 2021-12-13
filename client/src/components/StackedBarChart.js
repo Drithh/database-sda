@@ -116,12 +116,11 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
         tooltip.style('display', 'none');
       })
       .on('mousemove', (event, e) => {
-        tooltip.select('#valueTooltip').text('Kenapa');
-        var coordinates = pointer(event);
-        var x = coordinates[0];
-        var y = coordinates[1];
-
-        tooltip.attr('transform', 'translate(' + x + ',' + y + ')');
+        let coordinates = pointer(event);
+        tooltip.attr(
+          'transform',
+          'translate(' + coordinates[0] + ',' + coordinates[1] + ')'
+        );
       });
 
     var tooltip = svg
@@ -135,17 +134,15 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
       .attr('x', '0rem')
       .attr('dy', '-0.5rem')
       .style('text-anchor', 'middle')
-      .attr('font-size', '14px')
-      .attr('font-weight', 'bold');
+      .attr('class', 'text-xl')
+      .attr('class', 'font-bold')
+      .attr('fill', '#424242');
   }, [data, keys, colors]);
 
   return (
     <>
-      <div
-        ref={wrapperRef}
-        style={{ width: '100%', height: '400px', marginBottom: '2rem' }}
-      >
-        <svg ref={svgRef} style={{ width: '100%', height: '110%' }}>
+      <div ref={wrapperRef} className='w-full h-[400px] mb-8"'>
+        <svg ref={svgRef} className="w-full h-full ">
           <g className="x-axis" />
           <g className="y-axis1" />
           <g className="y-axis2" />
