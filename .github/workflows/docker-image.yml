@@ -9,12 +9,9 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-
     steps:
       - uses: actions/checkout@v2
-      - name: Build the Docker image
-        run: DB_PASSWORD=${{ secrets.PASS }} docker-compose build
-      - name: Test printing your secret (Remove this step in production)
-        run: cat $HOME/secrets/my_secret.json
+      - name: DB_PASSWORD=${{ secrets.PASS }} Build the Docker image
+        run: docker-compose build
       - name: Run the Docker
-        run: docker-compose up -d
+        run: DB_PASSWORD=${{ secrets.PASS }} docker-compose up -d
