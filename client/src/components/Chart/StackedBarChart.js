@@ -86,6 +86,7 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
         'x',
         (sequence) => x0Scale(sequence.data.name) + x1Scale(sequence.data.type)
       )
+      .attr('opacity', '0.8')
       .attr('width', x1Scale.bandwidth())
       .attr('y', (sequence) => yScale(sequence[1]))
       .attr('height', (sequence) => yScale(sequence[0]) - yScale(sequence[1]));
@@ -108,13 +109,12 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
     svg
       .selectAll('rect')
       .on('mouseenter', (e, d) => {
-        svg.selectAll('rect').attr('opacity', '0.7');
         select(e.target).attr('opacity', '1');
         tooltip.style('display', null);
         tooltip.select('text').text(d[1] - d[0]);
       })
       .on('mouseleave', (e) => {
-        svg.selectAll('rect').attr('opacity', '1');
+        select(e.target).attr('opacity', '0.8');
         tooltip.style('display', 'none');
       })
       .on('mousemove', (event, e) => {
