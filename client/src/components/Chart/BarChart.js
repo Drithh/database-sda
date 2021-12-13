@@ -98,7 +98,7 @@ export const D3BarGraph = () => {
   return (
     <div className="">
       <StackedBarGraph datasets={data} colors={colors} keys={keys} />
-      <div className="fields m-auto  flex justify-evenly h-12 ">
+      <div className="fields m-auto flex justify-evenly h-12 ">
         {allKeys.map((key) => (
           <div key={key} className="field flex font-Source font-light">
             <input

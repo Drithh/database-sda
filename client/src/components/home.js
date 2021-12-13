@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { pageTransition, variants } from './motion';
 import React from 'react';
-import { D3BarGraph } from './BarChart';
+import { D3BarGraph } from './Chart/BarChart';
+import { SunBurstGraph } from './Chart/SunburstGraph';
 
 const Home = () => {
   return (
@@ -15,7 +16,7 @@ const Home = () => {
       <div className="w-[1024px] m-auto">
         <div className="BarGraph my-2 border-b border-t border-solid border-secondary border-opacity-50">
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
-            POTENSI MINERAL INDONESIA
+            TOP 6 POTENSI MINERAL INDONESIA
           </h2>
           <D3BarGraph />
         </div>
@@ -28,6 +29,7 @@ const Home = () => {
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
             PENYUMBANG GDP
           </h2>
+          <SunBurstGraph />
         </div>
       </div>
     </motion.div>

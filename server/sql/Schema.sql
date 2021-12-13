@@ -20,7 +20,6 @@ CREATE LOGIN web WITH PASSWORD=   N'Kenapa03,'
 GO
 USE DATAVERSE;
 GO
-DROP USER web
 CREATE USER web FOR LOGIN web
 GO
 GRANT SELECT, DELETE, INSERT,UPDATE ON DATABASE::DATAVERSE TO web
@@ -186,7 +185,7 @@ CREATE TABLE [dbo].[HASIL]
     Angka BIGINT NOT NULL,
     Pendapatan BIGINT NOT NULL,
     Satuan NVARCHAR(20) NOT NULL,
-    PRIMARY KEY (IdKota, IdKomoditi, IdPerusahaan, Tahun, Angka),
+    PRIMARY KEY (IdKota, IdKomoditi, IdPerusahaan, Tahun),
 );
 
 

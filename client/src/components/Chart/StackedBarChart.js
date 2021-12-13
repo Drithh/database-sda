@@ -25,7 +25,9 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
       0,
       max(layers, (layer) => max(layer, (sequence) => sequence[1])),
     ];
-    const yScale = scaleLinear().domain(extent).range([height, 30]);
+    const yScale = scaleLinear()
+      .domain(extent)
+      .range([height - 30, 30]);
 
     const x0Scale = scaleBand()
       .domain(data.map((d) => d.name))
@@ -62,7 +64,7 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
       );
     svg
       .select('.x-axis')
-      .attr('transform', `translate(0, ${height})`)
+      .attr('transform', `translate(0, ${height - 30})`)
       .call(xAix)
       .call((g) => g.style('color', 'rgba(170, 170, 170, 0.5)'))
       .call((g) =>
