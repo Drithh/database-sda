@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[SUMBER_DAYA_ALAM]
 CREATE TABLE [dbo].[KEGUNAAN]
 (
     Id INT NOT NULL,
-    Kegunaan NVARCHAR(20) NOT NULL,
+    Kegunaan NVARCHAR(40) NOT NULL,
     FOREIGN KEY (Id) REFERENCES SUMBER_DAYA_ALAM(Id),
     PRIMARY KEY (Id, Kegunaan),
 );
@@ -116,28 +116,28 @@ CREATE TABLE [dbo].[WILAYAH]
 CREATE TABLE [dbo].[PERUSAHAAN]
 (
     Id INT NOT NULL PRIMARY KEY,
-    Nama NVARCHAR(20) NOT NULL,
+    Nama NVARCHAR(40) NOT NULL,
     Milik NVARCHAR(10) NOT NULL,
-    Sektor NVARCHAR(10) NOT NULL,
+    Sektor NVARCHAR(20) NOT NULL,
     TahunBerdiri SMALLINT NOT NULL,
-    Alamat NVARCHAR(40) NOT NULL,
-    Izin NVARCHAR(40) NOT NULL,
+    Alamat NVARCHAR(300) NOT NULL,
+    Izin NVARCHAR(100) NOT NULL,
     Jenis NVARCHAR(20) NOT NULL,
-    IdInduk INT,
-    FOREIGN KEY (IdInduk) REFERENCES [dbo].[PERUSAHAAN](Id),
     IdWilayah INT NOT NULL,
     FOREIGN KEY (IdWilayah) REFERENCES [dbo].[WILAYAH](Id),
+    IdInduk INT,
+    FOREIGN KEY (IdInduk) REFERENCES [dbo].[PERUSAHAAN](Id),
 );
 
 CREATE TABLE [dbo].[TELEPON]
 (
     Id INT NOT NULL,
     FOREIGN KEY (Id) REFERENCES [dbo].[PERUSAHAAN](Id),
-    Telepon NVARCHAR(15) NOT NULL,
+    Telepon NVARCHAR(20) NOT NULL,
     PRIMARY KEY (Id, Telepon),
 );
 
-CREATE TABLE [dbo].[PERUSAHAN_SWASTA]
+CREATE TABLE [dbo].[PERUSAHAAN_SWASTA]
 (
     Id INT NOT NULL,
     FOREIGN KEY (Id) REFERENCES [dbo].[PERUSAHAAN](Id),
@@ -154,10 +154,10 @@ CREATE TABLE [dbo].[BERADA_DI]
     FOREIGN KEY (IdKota) REFERENCES [dbo].[WILAYAH](Id),
     IdKomoditi INT NOT NULL,
     FOREIGN KEY (IdKomoditi) REFERENCES [dbo].[PERTAMBANGAN](Id),
-    PRIMARY KEY (IdKota, IdKomoditi),
     PejabatBertanggungJawab NVARCHAR(20) NOT NULL,
     Angka BIGINT NOT NULL,
     Satuan NVARCHAR(20) NOT NULL,
+    PRIMARY KEY (IdKota, IdKomoditi, Angka),
 );
 
 CREATE TABLE [dbo].[MENGOLAH]
@@ -171,7 +171,6 @@ CREATE TABLE [dbo].[MENGOLAH]
     PRIMARY KEY (IdKota, IdKomoditi, IdPerusahaan),
     Luas BIGINT NOT NULL,
     Longitude FLOAT NOT NULL,
-    Altitude FLOAT NOT NULL,
     Latitude FLOAT NOT NULL,
     JenisPengolahan NVARCHAR(20) NOT NULL,
 );
@@ -184,8 +183,8 @@ CREATE TABLE [dbo].[HASIL]
     FOREIGN KEY (IdKota, IdKomoditi, IdPerusahaan) REFERENCES MENGOLAH(IdKota, IdKomoditi, IdPerusahaan),
     Tahun SMALLINT NOT NULL,
     Angka BIGINT NOT NULL,
-    Pendapatan BIGINT NOT NULL,
     Satuan NVARCHAR(20) NOT NULL,
+    Pendapatan BIGINT NOT NULL,
     PRIMARY KEY (IdKota, IdKomoditi, IdPerusahaan, Tahun),
 );
 
