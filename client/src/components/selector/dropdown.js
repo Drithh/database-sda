@@ -9,11 +9,7 @@ export const Dropdown = () => {
   const [country, setCountry] = useState('1');
 
   return (
-    <div
-      className={
-        'my-10 w-[1000px] h-20 flex flex-col justify-center items-center'
-      }
-    >
+    <div className={'my-10 w-[1000px]'}>
       <div className={'w-[1000px] px-5 mt-auto'}>
         <CountrySelector
           id={'countries'}

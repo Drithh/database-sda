@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StackedBarGraph } from './StackedBarChart';
+import { StackedBarGraph } from './StackedBarGraph';
 
 const data = [
   {

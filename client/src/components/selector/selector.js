@@ -36,7 +36,7 @@ export const CountrySelector = React.forwardRef((props, ref) => {
           aria-labelledby="listbox-label"
           onClick={props.onToggle}
         >
-          <span className=" truncate flex items-center">
+          <span className="font-Source truncate flex items-center">
             {props.selectedValue.title}
           </span>
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -75,7 +75,7 @@ export const CountrySelector = React.forwardRef((props, ref) => {
                     type="search"
                     name="search"
                     autoComplete={'off'}
-                    className="focus:border-blue-500 border-1 border-solid block w-full h-8 px-2  sm:text-sm border-gray-300 rounded-md"
+                    className=" font-Source focus:border-blue-500 border-1 border-solid block w-full h-8 px-2  sm:text-sm border-gray-300 rounded-md"
                     placeholder={'Cari Informasi'}
                     onChange={(e) => setQuery(e.target.value)}
                   />
@@ -101,7 +101,7 @@ export const CountrySelector = React.forwardRef((props, ref) => {
                     return (
                       <li
                         key={`${props.id}-${index}`}
-                        className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 flex items-center hover:bg-gray-50 transition"
+                        className="text-gray-900 font-Source cursor-default select-none relative py-2 pl-3 pr-9 flex items-center hover:bg-gray-50 transition"
                         id="listbox-option-0"
                         role="option"
                         aria-selected="true"

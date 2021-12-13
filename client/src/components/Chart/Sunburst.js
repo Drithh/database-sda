@@ -96,12 +96,11 @@ export const SunBurstGraph = () => {
 
   const root = partition(data);
 
-  d3.selectAll('path')
+  d3.selectAll('.sunBurstPath')
     .on('mouseenter', (e, d) => {
       d3.select(e.target).style('opacity', '1');
       tooltip.style('display', null);
       let text = e.toElement.querySelector('text').innerHTML.split('/');
-      console.log(text);
       d3.select('#text1').text(text[0]);
       d3.select('#text2').text(text[1]);
     })
@@ -150,6 +149,7 @@ export const SunBurstGraph = () => {
           .filter((d) => d.depth)
           .map((d, i) => (
             <path
+              className="sunBurstPath"
               key={`${d.data.name}-${i}`}
               fill={getColor(d)}
               d={arc(d)}
