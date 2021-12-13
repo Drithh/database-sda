@@ -138,7 +138,7 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
       .style('text-anchor', 'middle')
       .attr('class', 'text-xl')
       .attr('class', 'font-bold')
-      .attr('fill', '#424242');
+      .attr('fill', 'rgb(142,142,142');
   }, [data, keys, colors]);
 
   return (

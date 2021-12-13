@@ -27,7 +27,7 @@ const Home = () => {
         </div>
         <div className="SunBurst my-2 border-b border-t border-solid border-secondary border-opacity-50">
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
-            GDP 5 TAHUN TERA
+            GDP 5 TAHUN TERAKHIR
           </h2>
           <SunBurstGraph />
         </div>
