@@ -1,48 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as d3 from 'd3';
-const data = {
-  name: 'flare',
-  children: [
-    {
-      name: 'animate',
-      children: [
-        { name: 'Easing', value: 17010 },
-        { name: 'FunctionSequence', value: 5842 },
-        { name: 'ISchedulable', value: 1041 },
-        { name: 'Parallel', value: 5176 },
-        { name: 'Pause', children: [{ name: 'kenapa', value: 5000 }] },
-      ],
-    },
-    {
-      name: 'data',
-      children: [
-        {
-          name: 'converters',
-        },
-        { name: 'DataField', value: 1759 },
-        { name: 'DataSchema', value: 2165 },
-        { name: 'DataSet', value: 586 },
-        { name: 'DataSource', value: 3331 },
-        { name: 'DataTable', value: 772 },
-        { name: 'DataUtil', value: 3322 },
-      ],
-    },
-    {
-      name: 'display',
-      children: [
-        { name: 'DirtySprite', value: 8833 },
-        { name: 'LineSprite', value: 1732 },
-        { name: 'RectSprite', value: 3623 },
-        { name: 'TextSprite', value: 10066 },
-      ],
-    },
-  ],
-};
 
 const SIZE = 600;
 const RADIUS = SIZE / 2;
 
-export const SunBurstGraph = () => {
+export const Sunburst = ({ data }) => {
   const svgRef = React.useRef(null);
   const [viewBox, setViewBox] = React.useState('0,0,0,0');
 
@@ -55,7 +17,7 @@ export const SunBurstGraph = () => {
     );
 
   const color = d3.scaleOrdinal(
-    d3.quantize(d3.interpolateRainbow, data.children.length + 1)
+    d3.quantize(d3.interpolateRainbow, data.children.length - 0)
   );
 
   const format = d3.format(',d');

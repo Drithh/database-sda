@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { pageTransition, variants } from './motion';
 import React from 'react';
 import { D3BarGraph } from './Chart/BarGraphj';
-import { SunBurstGraph } from './Chart/Sunburst';
+import { SunburstGraph } from './Chart/SunburstGraph';
 import { Dropdown } from './selector/dropdown';
 import { LineGraph } from './Chart/LineGraph';
 
@@ -32,7 +32,7 @@ const Home = () => {
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
             GDP 5 TAHUN TERAKHIR
           </h2>
-          <SunBurstGraph />
+          <SunburstGraph />
         </div>
         <div className=" my-2 border-b border-t border-solid border-secondary border-opacity-50">
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
