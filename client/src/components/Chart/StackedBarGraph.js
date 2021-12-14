@@ -89,7 +89,11 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
       .attr('opacity', '0.8')
       .attr('width', x1Scale.bandwidth())
       .attr('y', (sequence) => yScale(sequence[1]))
-      .attr('height', (sequence) => yScale(sequence[0]) - yScale(sequence[1]));
+      .attr('height', (sequence) => {
+        if (yScale(sequence[0]) - yScale(sequence[1])) {
+          return yScale(sequence[0]) - yScale(sequence[1]);
+        }
+      });
 
     svg
       .select('.x-axis')
