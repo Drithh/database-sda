@@ -1,50 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import Axios from 'axios';
 
-const datas = [
-  {
-    time: '2016',
-    valueA: '2',
-    valueB: '5',
-    valueC: '13',
-  },
-  {
-    time: '2017',
-    valueA: '3',
-    valueB: '4',
-    valueC: '14',
-  },
-  {
-    time: '2018',
-    valueA: '1',
-    valueB: '4',
-    valueC: '16',
-  },
-  {
-    time: '2019',
-    valueA: '7',
-    valueB: '4',
-    valueC: '12',
-  },
-  {
-    time: '2020',
-    valueA: '8',
-    valueB: '8',
-    valueC: '7',
-  },
-];
+const url = 'https://api.apasih.site/';
 
 export const LineGraph = () => {
-  const [data, setData] = useState(datas);
+  const [data, setData] = useState();
+  const [key, setKeys] = useState([]);
   const svgRef = useRef();
-
+  useEffect(() => {
+    Axios.get(url + 'get/hasil5Tahun').then((response) => {
+      setData(response.data);
+    });
+  }, []);
   var margin = { top: 10, right: 100, bottom: 30, left: 30 },
     width = 1000 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
   useEffect(() => {
     const svg = d3.select(svgRef.current);
 
-    var allGroup = ['valueA', 'valueB', 'valueC'];
+    var allGroup = [
+      'Kopi',
+      'Kakao',
+      'Sonokeling',
+      'Tebu',
+      'Tembakau',
+      'Perak',
+      'Aluminium',
+      'Dolomit',
+      'Sagu',
+      'Tembaga',
+    ];
 
     d3.select('#selectButton')
       .selectAll('myOptions')
@@ -63,7 +49,7 @@ export const LineGraph = () => {
     var x = d3
       .scaleLinear()
       .domain([2016, 2020])
-      .range([60, width - 150]);
+      .range([150, width - 150]);
     const xAix = d3.axisBottom(x).tickSizeOuter(0).ticks(5);
 
     svg
@@ -73,22 +59,24 @@ export const LineGraph = () => {
       .call((g) => g.style('color', 'rgba(170, 170, 170, 1)'));
 
     // Add Y axis
-    var y1 = d3.scaleLinear().domain([0, 20]).range([height, 30]);
+    var y1 = d3.scaleLinear().domain([0, 6000]).range([height, 30]);
 
     const yAix1 = d3.axisLeft(y1).tickSizeOuter(0).ticks(5);
     const yAix2 = d3
       .axisRight(y1)
       .tickSizeOuter(0)
       .ticks(5)
-      .tickSize(-width + 150, 0, 0);
+      .tickSize(-width + 180, 0, 0);
     svg
       .append('g')
-      .attr('transform', 'translate(30,0)')
+      .attr('id', 'leftY')
+      .attr('transform', 'translate(60,0)')
       .call(yAix1)
       .call((g) => g.select('.domain').remove())
       .call((g) => g.style('color', 'rgb(170, 170, 170, 1)'));
     svg
       .append('g')
+      .attr('id', 'rightY')
       .attr('transform', 'translate(' + (width - 120) + ',0)')
       .call(yAix2)
       .call((g) => g.select('.domain').remove())
@@ -112,11 +100,11 @@ export const LineGraph = () => {
             return x(+d.time);
           })
           .y(function (d) {
-            return y1(+d.valueA);
+            return y1(+d.Kopi);
           })
       )
       .attr('stroke', function (d) {
-        return myColor('valueA');
+        return myColor('Kopi');
       })
       .style('stroke-width', 4)
       .style('fill', 'none');
@@ -127,7 +115,42 @@ export const LineGraph = () => {
       var dataFilter = data.map(function (d) {
         return { time: d.time, value: d[selectedGroup] };
       });
+      let a = 0;
+      dataFilter.forEach(function (d) {
+        if (d.value > a) {
+          a = d.value;
+        }
+      });
+      a *= 1.5;
 
+      console.log(a);
+      y1 = d3.scaleLinear().domain([0, a]).range([height, 30]);
+
+      const yAix1 = d3.axisLeft(y1).tickSizeOuter(0).ticks(5);
+      const yAix2 = d3
+        .axisRight(y1)
+        .tickSizeOuter(0)
+        .ticks(5)
+        .tickSize(-width + 180, 0, 0);
+
+      svg
+        .select('g#leftY')
+        .attr('transform', 'translate(60,0)')
+        .call(yAix1)
+        .call((g) => g.select('.domain').remove())
+        .call((g) => g.style('color', 'rgb(170, 170, 170, 1)'));
+      svg
+        .select('g#rightY')
+        .attr('transform', 'translate(' + (width - 120) + ',0)')
+        .call(yAix2)
+        .call((g) => g.select('.domain').remove())
+        .call((g) => g.style('color', 'rgb(170, 170, 170, 1)'))
+        .call((g) =>
+          g
+            .selectAll('.tick')
+            .select('text')
+            .style('color', 'rgb(170, 170, 170, 1)')
+        );
       // Give these new data to update line
       line
         .datum(dataFilter)
@@ -157,13 +180,16 @@ export const LineGraph = () => {
       update(selectedOption);
     });
   }, [data]);
-
-  return (
-    <>
-      <div className="w-[800px] h-[400px] mb-8 m-auto">
-        <select id="selectButton"></select>
-        <svg ref={svgRef} className="w-full m-auto h-full " />
-      </div>
-    </>
-  );
+  if (data) {
+    return (
+      <>
+        <div className="w-[800px] h-[400px] mb-8 m-auto">
+          <select id="selectButton"></select>
+          <svg ref={svgRef} className="w-full m-auto h-full " />
+        </div>
+      </>
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 };
