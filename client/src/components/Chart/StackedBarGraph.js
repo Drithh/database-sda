@@ -31,7 +31,7 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
 
     const x0Scale = scaleBand()
       .domain(data.map((d) => d.name))
-      .range([30, width - 30])
+      .range([90, width - 90])
       .padding(0.46);
     const x1Scale = scaleBand()
       .domain(data.map((d) => d.type))
@@ -42,17 +42,17 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
     const yAix1 = axisRight(yScale).ticks(5);
     const yAix2 = axisLeft(yScale)
       .ticks(5)
-      .tickSize(-width + 60, 0, 0);
+      .tickSize(-width + 180, 0, 0);
 
     svg
       .select('.y-axis1')
-      .attr('transform', `translate(${width - 30}, 0 )`)
+      .attr('transform', `translate(${width - 90}, 0 )`)
       .call(yAix1)
       .call((g) => g.select('.domain').remove())
       .call((g) => g.style('color', 'rgb(170, 170, 170, 1)'));
     svg
       .select('.y-axis2')
-      .attr('transform', `translate(${30}, 0 )`)
+      .attr('transform', `translate(${90}, 0 )`)
       .call(yAix2)
       .call((g) => g.select('.domain').remove())
       .call((g) => g.style('color', 'rgb(170, 170, 170, 0.5)'))

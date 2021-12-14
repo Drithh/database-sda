@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const dbCrud = require('./dbCrud');
 const dbGraph = require('./dbGraph');
+const dbView = require('./dbView');
 
 app.use(cors());
 app.use(express.json());
@@ -62,6 +63,18 @@ app.get('/get/totalHasil', (req, res) => {
 
 app.get('/get/topPotensi', (req, res) => {
   dbGraph.getPotensi().then((result) => {
+    res.send(result);
+  });
+});
+
+app.get('/get/hasil5Tahun', (req, res) => {
+  dbGraph.getHasil5Tahun().then((result) => {
+    res.send(result);
+  });
+});
+
+app.get('/get/view/:id', (req, res) => {
+  dbView.getView(req.params.id).then((result) => {
     res.send(result);
   });
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CountrySelector } from './selector';
+import { ViewSelector } from './selector';
 import { VIEW } from './views';
 
 export const Dropdown = () => {
@@ -8,11 +8,14 @@ export const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [country, setCountry] = useState('1');
 
+  const selectView = (view) => {
+    VIEW.find((option) => option.value === country);
+  };
   return (
     <div className={'my-10 w-[1000px]'}>
-      <div className={'w-[1000px] px-5 mt-auto'}>
-        <CountrySelector
-          id={'countries'}
+      <div className={'w-[1000px] h-[300px] px-5 mt-auto'}>
+        <ViewSelector
+          id={'views'}
           ref={myRef}
           open={isOpen}
           onToggle={() => setIsOpen(!isOpen)}
