@@ -6,7 +6,7 @@ const url = 'https://api.apasih.site/';
 
 export const LineGraph = () => {
   const [data, setData] = useState();
-  const [key, setKeys] = useState([]);
+  // const [key, setKeys] = useState([]);
   const svgRef = useRef();
   useEffect(() => {
     Axios.get(url + 'get/hasil5Tahun').then((response) => {
@@ -123,7 +123,6 @@ export const LineGraph = () => {
       });
       a *= 1.5;
 
-      console.log(a);
       y1 = d3.scaleLinear().domain([0, a]).range([height, 30]);
 
       const yAix1 = d3.axisLeft(y1).tickSizeOuter(0).ticks(5);
@@ -179,13 +178,16 @@ export const LineGraph = () => {
       // run the updateChart function with this selected option
       update(selectedOption);
     });
-  }, [data]);
+  }, [data, height, width]);
   if (data) {
     return (
       <>
         <div className="w-[800px] h-[400px] mb-8 m-auto">
-          <select id="selectButton"></select>
-          <svg ref={svgRef} className="w-full m-auto h-full " />
+          <div className="w-full flex place-items-center flex-col gap-7">
+            <span>Dalam Satuan Ton</span>
+            <select id="selectButton" className="m-auto "></select>
+          </div>
+          <svg ref={svgRef} className="w-full h-full " />
         </div>
       </>
     );

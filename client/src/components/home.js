@@ -20,9 +20,11 @@ const Home = () => {
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
             TOP 6 POTENSI MINERAL INDONESIA
           </h2>
+          <p className="text-center">Dalam Ribuan Bijih</p>
+
           <D3BarGraph />
         </div>
-        <div className="LineGraph my-2 border-b border-t border-solid border-secondary border-opacity-50">
+        <div className="LineGraph h-[600px] my-2 border-b border-t border-solid border-secondary border-opacity-50">
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
             HASIL SUMBER DAYA ALAM
           </h2>
@@ -32,6 +34,7 @@ const Home = () => {
           <h2 className="mt-10 font-Source text-center font-medium text-2xl text-primary tracking-widest">
             GDP 5 TAHUN TERAKHIR
           </h2>
+          <p className="text-center">Dalam Jutaan Rupiah</p>
           <SunburstGraph />
         </div>
         <div className=" my-2 border-b border-t border-solid border-secondary border-opacity-50">

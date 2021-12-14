@@ -12,19 +12,19 @@ export const ViewSelector = React.forwardRef((props, ref) => {
   useEffect(() => {
     Axios.get(url + 'get/view/' + intCode).then((response) => {
       let text = '';
-      if (intCode == 1) {
+      if (intCode === '1') {
         text =
           'Potensi Mineral dengan Bijih Terbanyak di Kalimantan adalah ' +
           response.data[0].NamaKomoditi;
-      } else if (intCode == 2) {
+      } else if (intCode === '2') {
         text =
           'Perusahaan yang bukan PT yang menyumbang pendapatan terbesar di Indonesia adalah ' +
           response.data[0].Nama;
-      } else if (intCode == 3) {
+      } else if (intCode === '3') {
         text =
           'Perusahaan Swasta yang membeli hasil olahan sda kehutanan paling banyak tetapi tidak mengolah sumber daya alam di indonesia adalah ' +
           response.data[0].Nama;
-      } else if (intCode == 4) {
+      } else if (intCode === '4') {
         text =
           'Sumber Daya Alam yang memiliki kegunaan paling banyak adalah ' +
           response.data[0].NamaKomoditi;
@@ -50,7 +50,7 @@ export const ViewSelector = React.forwardRef((props, ref) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, props]);
 
   const [query, setQuery] = useState('');
 

@@ -1634,7 +1634,7 @@ VALUES
     (25, 29, N'Bupati', 149.96, N'Hektar'),
     (8, 53, N'Gubernur', 27825095, N'Bijih'),
     (274, 32, N'Gubernur', 20277326, N'Bijih'),
-    (7, 31, N'Bupati', 1350917990, N'Bijih'),
+    (7, 31, N'Bupati', 135091, N'Bijih'),
     (89, 22, N'Gubernur', 1536367, N'Bijih'),
     (34, 36, N'Gubernur', 932, N'Hektar'),
     (341, 39, N'Gubernur', 100, N'Hektar'),

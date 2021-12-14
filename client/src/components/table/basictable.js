@@ -8,13 +8,7 @@ import Axios from 'axios';
 const url = 'https://api.apasih.site/';
 
 const failedMessage = (message) => {
-  let failedMessage = JSON.stringify(message);
-  failedMessage = failedMessage.match('duplicate')
-    ? 'Cannot insert duplicate key'
-    : failedMessage.match('truncated')
-    ? 'Data too long'
-    : failedMessage;
-  return 'Query Failed\n' + failedMessage;
+  return 'Query Gagal \n' + failedMessage;
 };
 
 const GetTableName = () => {
@@ -94,7 +88,7 @@ const BasicTable = () => {
                 (response) => {
                   if (response.data === 1) {
                     setData([...data, newData]);
-                    alert('success');
+                    alert('Data Berhasil Ditambahkan');
                     resolve();
                   } else {
                     alert(failedMessage(response.data));
@@ -113,7 +107,7 @@ const BasicTable = () => {
                 (response) => {
                   if (response.data === 1) {
                     setData(data.filter((row, i) => i !== index));
-                    alert('success');
+                    alert('Data Berhasil Dihapus');
                     resolve();
                   } else {
                     alert(failedMessage(response.data));
@@ -136,7 +130,7 @@ const BasicTable = () => {
                   const index = oldData.tableData.id;
                   dataUpdate[index] = newData;
                   setData([...dataUpdate]);
-                  alert('success');
+                  alert('Data Berhasil Diubah');
                   resolve();
                 } else {
                   alert(failedMessage(response.data));

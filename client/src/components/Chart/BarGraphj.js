@@ -3,8 +3,8 @@ import { StackedBarGraph } from './StackedBarGraph';
 
 import Axios from 'axios';
 
-const url = 'http://localhost:8081/';
-// const url = 'https://api.apasih.site/';
+// const url = 'http://localhost:8081/';
+const url = 'https://api.apasih.site/';
 
 const allKeys = [
   'Jawa',
