@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StackedBarGraph } from './StackedBarGraph';
 
 import Axios from 'axios';
-
-// const url = 'http://localhost:8081/';
-const url = 'https://api.apasih.site/';
+import { urlLink } from '../urlLink.js';
 
 const allKeys = [
   'Jawa',
@@ -30,7 +28,7 @@ export const D3BarGraph = () => {
   const [keys, setKeys] = useState(allKeys);
   const [data, setData] = useState();
   useEffect(() => {
-    Axios.get(url + 'get/topPotensi').then((response) => {
+    Axios.get(urlLink + 'get/topPotensi').then((response) => {
       setData(response.data);
     });
   }, []);

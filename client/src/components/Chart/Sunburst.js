@@ -1,7 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 
-const SIZE = 600;
+const SIZE = 700;
 const RADIUS = SIZE / 2;
 
 export const Sunburst = ({ data }) => {
@@ -16,9 +16,7 @@ export const Sunburst = ({ data }) => {
         .sort((a, b) => b.value - a.value)
     );
 
-  const color = d3.scaleOrdinal(
-    d3.quantize(d3.interpolateRainbow, data.children.length - 0)
-  );
+  const color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 5));
 
   const format = d3.format(',d');
 

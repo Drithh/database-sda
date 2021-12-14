@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import { Sunburst } from './Sunburst';
 
 import Axios from 'axios';
-
-const url = 'https://api.apasih.site/';
+import { urlLink } from '../urlLink.js';
 
 const templateData = {
-  name: 'SDA',
+  name: 'SDA12',
   children: [
     {
       name: 'Pertambangan',
@@ -26,15 +25,16 @@ const templateData = {
     },
   ],
 };
+
 export const SunburstGraph = () => {
   const [data1, setData1] = React.useState();
   useEffect(() => {
-    Axios.get(url + 'get/totalHasil').then((response) => {
+    Axios.get(urlLink + 'get/totalHasil').then((response) => {
       templateData.children[1].children = response.data[0];
       templateData.children[2].children = response.data[3];
-      templateData.children[0].children[0] = response.data[1];
-      templateData.children[0].children[1] = response.data[4];
-      templateData.children[0].children[2] = response.data[2];
+      templateData.children[0].children[0].children = response.data[1];
+      templateData.children[0].children[1].children = response.data[4];
+      templateData.children[0].children[2].children = response.data[2];
       setData1(templateData);
     });
   }, []);

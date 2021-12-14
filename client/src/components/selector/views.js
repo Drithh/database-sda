@@ -1,30 +1,30 @@
 export const VIEW = [
   {
     title:
-      'Potensi Mineral dengan Bijih Terbanyak di unit geografis kalimantan',
+      'Potensi sumber daya alam mineral yang memiliki jumlah bijih paling banyak yang berlokasi di unit geografis Kalimantan',
     value: '1',
   },
   {
     title:
-      'Perusahaan yang bukan PT yang menyumbang pendapatan terbesar di Indonesia',
+      'Perusahaan selain PT yang menyumbang pendapatan terbesar di Indonesia',
     value: '2',
   },
   {
     title:
-      'Perusahaan Swasta yang membeli hasil olahan sda kehutanan paling banyak tetapi tidak mengolah sumber daya alam di indonesia',
+      'Perusahaan milik negara yang menjual barang olahan paling banyak ke perusahaan swasta',
     value: '3',
   },
   {
-    title: 'Sumber Daya Alam yang memiliki kegunaan paling banyak',
+    title: 'Sumber daya alam yang memiliki kegunaan paling banyak',
     value: '4',
   },
   {
     title:
-      'Pohon dan Nama Familinya yang memiliki waktu pertumbuhan paling lama dan hanya dapat tumbuh di dataran rendah',
+      'Komoditi Kehutanan dan Nama Familinya dengan waktu pertumbuhan paling lama dan hanya dapat tumbuh di dataran rendah',
     value: '5',
   },
   {
-    title: 'Wilayah Provinsi yang ditempati paling banyak Perusahaan Negara',
+    title: 'Provinsi yang paling banyak ditempati oleh perusahaan milik negara',
     value: '6',
   },
   {
@@ -33,27 +33,26 @@ export const VIEW = [
   },
   {
     title:
-      'Perusahaan Tertua yang mengolah sumber daya alam terbarukan dengan lahan paling luas',
+      'Perusahaan paling tua yang mengolah sumber daya alam terbarukan dengan lahan paling luas',
     value: '8',
   },
   {
     title:
-      'Komoditas Perkebunan yang memiliki Suhu Optimal dibawah rata-rata dan waktu panen terlama',
+      'Komoditas perkebunan dengan suhu optimal di bawah rata-rata dan memiliki waktu panen paling lama',
     value: '9',
   },
   {
     title:
-      'Komoditas Pertambangan asalnya dari Sedimentasi dan berada dipaling banyak tempat di indonesia',
+      'Komoditas pertambangan yang berasal dari sedimentasi dan paling banyak tersebar di indonesia',
     value: '10',
   },
   {
     title:
-      'Komoditas Mineral yang memiliki kekerasan mohs diatas rata-rata juga paling banyak diolah oleh perusahaan',
+      'Komoditas mineral dengan kekerasan mohs di atas rata-rata dan paling banyak diolah oleh perusahaan',
     value: '11',
   },
   {
-    title:
-      'Nama English dari Komoditas Tanah yang memiliki ukuran paling kecil',
+    title: 'Nama english dari komoditas tanah dengan ukuran paling kecil',
     value: '12',
   },
   {
@@ -63,22 +62,22 @@ export const VIEW = [
   },
   {
     title:
-      'Komoditas minyak bumi yang paling banyak diolah di Unit Geografis Kalimantan',
+      'Komoditas mineral paling banyak diolah di unit geografis Kalimantan',
     value: '14',
   },
   {
     title:
-      'Komoditas minyak bumi yang memiliki jumlah atom diatas rata-rata dengan titik didih paling tinggi',
+      'Komoditas minyak bumi dengan jumlah atom di atas rata-rata yang memiliki titik didih paling tinggi',
     value: '15',
   },
   {
     title:
-      'Kandungan Unsur Tanah yang paling banyak dikandung oleh Sumber Daya Alam Tanah',
+      'Kandungan unsur yang paling sering di kandung oleh Sumber Daya Alam Tanah',
     value: '16',
   },
   {
     title:
-      'Nama Sumber Daya Alam Tak Terbarukan Golongan Senyawa Hidrokarbon yang memberikan pendapatan terbesar di Sumatera',
+      'Nama Sumber Daya Alam Tidak Terbarukan dan termasuk Golongan Senyawa Hidrokarbon yang memberikan pendapatan terbesar di Sumatera',
     value: '17',
   },
   {
@@ -88,7 +87,7 @@ export const VIEW = [
   },
   {
     title:
-      'Sumber Daya Alam Tak Terbarukan yang diolah di atas tanah dengan total luas paling kecil',
+      'Nama Sumber Daya Alam Tak Terbarukan yang diolah di atas tanah dengan total luas paling kecil',
     value: '19',
   },
   {
@@ -98,54 +97,54 @@ export const VIEW = [
   },
   {
     title:
-      'Nama English dari pohon kehutanan yangm memiliki kepadatan kayu paling tinggi',
+      'Nama English dari komoditas kehutanan yang memiliki kepadatan kayu paling tinggi',
     value: '21',
   },
   {
     title:
-      'Alamat Jalan dari Perusahaan Negara yang mengolah sda terbarukan dan memiliki anak paling banyak',
+      'Alamat jalan dari Perusahaan Negara yang mengolah sumber daya alam terbarukan dan memiliki anak perusahaan paling banyak',
     value: '22',
   },
   {
-    title: 'Nama Olahan yang paling banyak dijual oleh perusahaan',
+    title: 'Nama Olahan yang paling banyak dibeli oleh perusahaan swasta',
     value: '23',
   },
   {
     title:
-      'Perusahaan yang bukan PT tetapi komoditas jenis sumber daya alam paling banyak',
+      'Perusahaan yang bukan PT dan mengolah komoditas jenis sumber daya alam paling banyak',
     value: '24',
   },
   {
     title:
-      'Perusahaan Swasta yang izinnya sudah berakhir tetapi masih melakukan pengolahan sumber daya alam',
+      'Sumber Daya Alam yang diolah perusahaan dengan latitude diantara 3 - 5 inklusif dan longitude 90 - 100 inklusif',
     value: '25',
   },
   {
     title:
-      'Sumber Daya Alam yang diolah perusahaan dengan luas yang paling besar dengan latitude diantara 3 - 5 inklusif dan longitude 90 - 100 inklusif',
+      'Tahun dengan pendapatan paling besar dari sumber daya alam terbarukan',
     value: '26',
   },
   {
-    title:
-      'Pada tahun apa Indonesia memiliki pendapatan paling besar dari sumber daya alam terbarukan',
+    title: 'Perusahaan Swasta termuda yang bergerak dalam sektor migas',
     value: '27',
   },
   {
-    title: 'Perusahaan Swasta termuda yang bergerak dalam sektor migas',
+    title:
+      'Nama komoditas Pertambangan dengan Golongan Logam Transisi yang kilaunya Metalik',
     value: '28',
   },
   {
     title:
-      'Sumber Daya Alam Pertambangan Golongan Logam Transisi yang kilaunya Metalik',
+      'Nama Wilayah Provinsi dan Sumber Daya Alam yang diolah bukan di atas tanah atau di bawah tanah dengan luas terbesar',
     value: '29',
   },
   {
-    title:
-      'Nama Wilayah Provinsi dan Sumber Daya Alam yang diolah bukan di atas tanah atau di bawah tanah dengan luas terbesar',
+    title: 'Perusahaan yang memiliki no telp paling banyak',
     value: '30',
   },
-  {
-    title: 'Perusahaan yang memiliki no telp paling banyak (hehe)',
-    value: '31',
-  },
 ];
+
+export const textConvert = (value) => {
+  console.log(VIEW);
+  return VIEW[value - 1].title + ' adalah ';
+};

@@ -9,7 +9,7 @@ export const Dropdown = () => {
   const [country, setCountry] = useState('1');
 
   return (
-    <div className={'my-10 w-[1000px]'}>
+    <div className={'my-10 w-[1000px] m-auto'}>
       <div className={'w-[1000px] h-[300px] px-5 mt-auto'}>
         <ViewSelector
           id={'views'}

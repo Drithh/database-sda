@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import Axios from 'axios';
-
-const url = 'https://api.apasih.site/';
+import { urlLink } from '../urlLink.js';
 
 export const LineGraph = () => {
   const [data, setData] = useState();
   // const [key, setKeys] = useState([]);
   const svgRef = useRef();
   useEffect(() => {
-    Axios.get(url + 'get/hasil5Tahun').then((response) => {
+    Axios.get(urlLink + 'get/hasil5Tahun').then((response) => {
       setData(response.data);
     });
   }, []);

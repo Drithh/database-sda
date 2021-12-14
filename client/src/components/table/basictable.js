@@ -3,9 +3,7 @@ import { Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import * as React from 'react';
 import Axios from 'axios';
-
-// const url = 'http://' + window.location.hostname + ':8081/';
-const url = 'https://api.apasih.site/';
+import { urlLink } from '../urlLink.js';
 
 const failedMessage = (message) => {
   return 'Query Gagal \n' + failedMessage;
@@ -14,7 +12,7 @@ const failedMessage = (message) => {
 const GetTableName = () => {
   const [tableNames, setTableNames] = useState([]);
   useEffect(() => {
-    Axios.get(url + 'get/table-name').then((response) => {
+    Axios.get(urlLink + 'get/table-name').then((response) => {
       setTableNames(response.data.filter((x) => !x.includes('sysdiagrams')));
     });
   }, []);
@@ -27,7 +25,7 @@ const BasicTable = () => {
   const [columns, setColumns] = useState([]);
   const [tableName, setTableName] = useState('WILAYAH');
   useEffect(() => {
-    Axios.get(url + 'get/table/' + tableName).then((response) => {
+    Axios.get(urlLink + 'get/table/' + tableName).then((response) => {
       setColumns(
         Object.keys(response.data[0]).map((key) => {
           return {
@@ -84,7 +82,7 @@ const BasicTable = () => {
         onRowAdd: (newData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post(url + 'post/insert/' + tableName, newData).then(
+              Axios.post(urlLink + 'post/insert/' + tableName, newData).then(
                 (response) => {
                   if (response.data === 1) {
                     setData([...data, newData]);
@@ -103,7 +101,7 @@ const BasicTable = () => {
           return new Promise((resolve, reject) => {
             const index = oldData.tableData.id;
             setTimeout(() => {
-              Axios.post(url + 'post/delete/' + tableName, oldData).then(
+              Axios.post(urlLink + 'post/delete/' + tableName, oldData).then(
                 (response) => {
                   if (response.data === 1) {
                     setData(data.filter((row, i) => i !== index));
@@ -121,7 +119,7 @@ const BasicTable = () => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post(url + 'post/update/' + tableName, [
+              Axios.post(urlLink + 'post/update/' + tableName, [
                 newData,
                 oldData,
               ]).then((response) => {
