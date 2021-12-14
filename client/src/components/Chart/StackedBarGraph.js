@@ -149,9 +149,9 @@ export const StackedBarGraph = ({ datasets, keys, colors }) => {
     <>
       <div ref={wrapperRef} className='w-full h-[400px] mb-8"'>
         <svg ref={svgRef} className="w-full h-full ">
-          <g className="x-axis" />
-          <g className="y-axis1" />
-          <g className="y-axis2" />
+          <g className="font-Josefin x-axis" />
+          <g className="font-Josefin y-axis1" />
+          <g className="font-Josefin y-axis2" />
         </svg>
       </div>
     </>

@@ -45,7 +45,15 @@ export const Sunburst = ({ data }) => {
 
   const getColor = (d) => {
     while (d.depth > 1) d = d.parent;
-    return color(d.data.name);
+    let colorName;
+    if (d.data.name === 'Pertambangan') {
+      colorName = 'hsl(182, 47%, 73%)';
+    } else if (d.data.name === 'Kehutanan') {
+      colorName = 'hsl(10, 19%, 87%)';
+    } else if (d.data.name === 'Perkebunan') {
+      colorName = 'hsl(155, 41%, 71%)';
+    }
+    return colorName;
   };
 
   const getTextTransform = (d) => {
@@ -131,9 +139,11 @@ export const Sunburst = ({ data }) => {
           .filter((d) => d.depth && ((d.y0 + d.y1) / 2) * (d.x1 - d.x0) > 10)
           .map((d, i) => (
             <text
+              className="font-Josefin"
               key={`${d.data.name}-${i}`}
               transform={getTextTransform(d)}
               dy="0.35em"
+              fill="rgb(142,142,142"
             >
               {d.data.name}
             </text>

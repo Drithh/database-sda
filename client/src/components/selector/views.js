@@ -145,6 +145,5 @@ export const VIEW = [
 ];
 
 export const textConvert = (value) => {
-  console.log(VIEW);
   return VIEW[value - 1].title + ' adalah ';
 };

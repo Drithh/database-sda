@@ -53,6 +53,7 @@ export const LineGraph = () => {
 
     svg
       .append('g')
+      .attr('class', 'font-Josefin')
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAix)
       .call((g) => g.style('color', 'rgba(170, 170, 170, 1)'));
@@ -69,6 +70,7 @@ export const LineGraph = () => {
     svg
       .append('g')
       .attr('id', 'leftY')
+      .attr('class', 'font-Josefin')
       .attr('transform', 'translate(60,0)')
       .call(yAix1)
       .call((g) => g.select('.domain').remove())
@@ -76,6 +78,7 @@ export const LineGraph = () => {
     svg
       .append('g')
       .attr('id', 'rightY')
+      .attr('class', 'font-Josefin')
       .attr('transform', 'translate(' + (width - 120) + ',0)')
       .call(yAix2)
       .call((g) => g.select('.domain').remove())
