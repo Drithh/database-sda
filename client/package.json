@@ -28,7 +28,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "cross-env TAILWIND_MODE=watch craco --openssl-legacy-provider start",
+    "start": "cross-env TAILWIND_MODE=watch craco  start",
     "build": "craco --openssl-legacy-provider  build",
     "test": "craco test",
     "eject": "react-scripts eject",
