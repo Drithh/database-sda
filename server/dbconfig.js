@@ -1,7 +1,7 @@
 const config = {
-  user: 'web',
+  user: 'websomee',
   password: 'Kenapa03,',
-  server: 'db',
+  server: 'dataverse.mssql.somee.com',
   database: 'DATAVERSE',
   options: {
     trustedConnection: true,
