@@ -32,7 +32,8 @@
     "build": "craco   build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "static": "http-server --cors true build"
+    "static": "http-server --cors true build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +56,7 @@
   "devDependencies": {
     "autoprefixer": "^9.8.8",
     "cross-env": "^7.0.3",
+    "gh-pages": "^3.2.3",
     "immer": ">=9.0.6",
     "postcss": "^7.0.39",
     "stylelint-config-standard": "^24.0.0",
