@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/dataverse/static/css/main.dd3095aa.chunk.css",
-    "main.js": "/dataverse/static/js/main.940b8393.chunk.js",
-    "main.js.map": "/dataverse/static/js/main.940b8393.chunk.js.map",
-    "runtime-main.js": "/dataverse/static/js/runtime-main.a0093463.js",
-    "runtime-main.js.map": "/dataverse/static/js/runtime-main.a0093463.js.map",
-    "static/js/2.731f607e.chunk.js": "/dataverse/static/js/2.731f607e.chunk.js",
-    "static/js/2.731f607e.chunk.js.map": "/dataverse/static/js/2.731f607e.chunk.js.map",
+    "main.css": "/dataverse/static/css/main.f013feaf.chunk.css",
+    "main.js": "/dataverse/static/js/main.b056ead0.chunk.js",
+    "main.js.map": "/dataverse/static/js/main.b056ead0.chunk.js.map",
+    "runtime-main.js": "/dataverse/static/js/runtime-main.8b74a512.js",
+    "runtime-main.js.map": "/dataverse/static/js/runtime-main.8b74a512.js.map",
+    "static/js/2.9e3811ef.chunk.js": "/dataverse/static/js/2.9e3811ef.chunk.js",
+    "static/js/2.9e3811ef.chunk.js.map": "/dataverse/static/js/2.9e3811ef.chunk.js.map",
     "index.html": "/dataverse/index.html",
-    "static/css/main.dd3095aa.chunk.css.map": "/dataverse/static/css/main.dd3095aa.chunk.css.map",
-    "static/js/2.731f607e.chunk.js.LICENSE.txt": "/dataverse/static/js/2.731f607e.chunk.js.LICENSE.txt"
+    "static/css/main.f013feaf.chunk.css.map": "/dataverse/static/css/main.f013feaf.chunk.css.map",
+    "static/js/2.9e3811ef.chunk.js.LICENSE.txt": "/dataverse/static/js/2.9e3811ef.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a0093463.js",
-    "static/js/2.731f607e.chunk.js",
-    "static/css/main.dd3095aa.chunk.css",
-    "static/js/main.940b8393.chunk.js"
+    "static/js/runtime-main.8b74a512.js",
+    "static/js/2.9e3811ef.chunk.js",
+    "static/css/main.f013feaf.chunk.css",
+    "static/js/main.b056ead0.chunk.js"
   ]
 }
