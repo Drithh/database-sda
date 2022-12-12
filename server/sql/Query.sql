@@ -1,37 +1,30 @@
 
-USE DATAVERSE
-GO
-CREATE PROCEDURE totalGDP
-AS
-DECLARE @NAMES Table (Name NVARCHAR(20) PRIMARY KEY NOT NULL)
-INSERT @NAMES
-  (Name)
-VALUES
-  ('KEHUTANAN'),
-  ('PERKEBUNAN'),
-  ('MINERAL'),
-  ('TANAH'),
-  ('MINYAK_BUMI')
-DECLARE @CustomSQL AS NVARCHAR(500)
+CREATE PROCEDURE totalGDP()
+language plpgsql
+as $$
 
-DECLARE @NamaKomoditi NVARCHAR(20)
-WHILE EXISTS (SELECT *
-FROM @NAMES)
-BEGIN
-  SELECT TOP(1)
-    @NamaKomoditi = Name
-  FROM @NAMES
-  SET @CustomSQL = 'SELECT SDA.NamaKomoditi AS name, SUM(H.Pendapatan) / 1000000 AS value FROM HASIL H
-    JOIN SUMBER_DAYA_ALAM SDA ON H.IdKomoditi = SDA.Id
-    WHERE H.IdKomoditi IN (
-        SELECT Id FROM ' + @NamaKomoditi + ' 
-    )
-    GROUP BY SDA.NamaKomoditi'
-  EXEC (@CustomSQL)
-  DELETE FROM @NAMES WHERE Name = @NamaKomoditi
-END
-GO
-	GO
+  DECLARE CustomSQL VARCHAR(500);
+  DECLARE NamaKomoditi VARCHAR(20);
+  
+  BEGIN
+    CREATE TEMP TABLE NAMES (Name VARCHAR(20));
+    INSERT INTO NAMES VALUES ('KEHUTANAN');
+    INSERT INTO NAMES VALUES ('PERKEBUNAN');
+    INSERT INTO NAMES VALUES ('MINERAL');
+    INSERT INTO NAMES VALUES ('TANAH');
+    INSERT INTO NAMES VALUES ('MINYAK_BUMI');
+
+    FOR NamaKomoditi IN (SELECT * FROM NAMES)
+    LOOP
+      EXECUTE "SELECT SDA.NamaKomoditi AS name, SUM(H.Pendapatan) / 1000000 AS value FROM HASIL H
+        JOIN SUMBER_DAYA_ALAM SDA ON H.IdKomoditi = SDA.Id
+        WHERE H.IdKomoditi IN (SELECT Id FROM " || NamaKomoditi || ")
+        GROUP BY SDA.NamaKomoditi"
+      DELETE FROM NAMES WHERE Name = NamaKomoditi;
+    END LOOP;
+	END;
+$$
+
 CREATE VIEW topPotensi
 AS
   SELECT SDA.NamaKomoditi AS name , SUM(BI.Angka)/1000 AS Total, W.UnitGeografis
@@ -39,14 +32,15 @@ AS
     JOIN SUMBER_DAYA_ALAM SDA ON SDA.Id = BI.IdKomoditi
     JOIN WILAYAH W ON W.id = BI.IdKota
   WHERE BI.Satuan = 'Bijih' AND BI.IdKomoditi IN (
-		SELECT TOP(6)
+		SELECT 
       BI1.IdKomoditi
     FROM BERADA_DI BI1
     GROUP BY BI1.IdKomoditi
     ORDER BY SUM(BI1.Angka) DESC
+    LIMIT 6
 		)
-  GROUP BY SDA.NamaKomoditi, W.UnitGeografis
-	GO
+  GROUP BY SDA.NamaKomoditi, W.UnitGeografis;
+
 
 CREATE VIEW hasil5Tahun
 AS
@@ -58,96 +52,102 @@ AS
     FROM HASIL H
     GROUP BY H.IdKomoditi
     HAVING SUM(H.Tahun) = 10090
-	)
-	GO
-	GO
+	);
+
+
 CREATE  VIEW VIEW1
 AS
   SELECT SDA.NamaKomoditi
-  FROM [DATAVERSE].dbo.SUMBER_DAYA_ALAM SDA
+  FROM SUMBER_DAYA_ALAM SDA
   WHERE SDA.Id IN( 
 	SELECT MINERAL.Id
-  FROM DATAVERSE.dbo.MINERAL
+  FROM MINERAL
   WHERE MINERAL.Id IN( 
-	SELECT TOP (1)
+	SELECT
     BERADA_DI.IdKomoditi
-  FROM dbo.BERADA_DI
+  FROM BERADA_DI
   WHERE BERADA_DI.IdKota IN(
 	SELECT WILAYAH.Id
-  FROM [dbo].[WILAYAH]
+  FROM WILAYAH
   WHERE WILAYAH.UnitGeografis = 'Kalimantan'
 	)
   GROUP BY BERADA_DI.IdKomoditi
   ORDER BY COUNT(BERADA_DI.IdKomoditi) DESC
+  LIMIT 1
 	)
-	)
-	GO
+	);
+
 CREATE  VIEW VIEW2
 AS
-  SELECT TOP(1)
+  SELECT 
     P.Nama
   FROM PERUSAHAAN P
     RIGHT JOIN HASIL H ON P.Id=H.IdPerusahaan
   WHERE P.Jenis<>'PT'
   ORDER BY H.Pendapatan DESC
-	GO
+  LIMIT 1;
+
 
 CREATE  VIEW VIEW3
 AS
   SELECT PERUSAHAAN.Nama
   FROM PERUSAHAAN
   WHERE id IN (
-        SELECT TOP(1)
+        SELECT 
     PS.idPerusahaanBeli
   FROM PERUSAHAAN P
     RIGHT JOIN PERUSAHAAN_SWASTA PS ON P.Id=PS.Id
   WHERE PS.idPerusahaanBeli IS NOT NULL
   GROUP BY PS.idPerusahaanBeli
   ORDER BY COUNT(PS.idPerusahaanBeli) DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW4
 AS
   SELECT SUMBER_DAYA_ALAM.NamaKomoditi
   FROM SUMBER_DAYA_ALAM
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT 
     SDA.Id
   FROM SUMBER_DAYA_ALAM SDA
     JOIN KEGUNAAN K ON SDA.Id=K.Id
   GROUP BY SDA.Id
   ORDER BY COUNT(K.Id) DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW5
 AS
-  SELECT TOP(1)
+  SELECT 
     SDA.NamaKomoditi, K.Famili
   FROM KEHUTANAN K
     JOIN SUMBER_DAYA_ALAM SDA ON K.Id=SDA.Id
   WHERE K.KesesuaianEkologis='Dataran rendah'
   ORDER BY K.PERTUMBUHAN DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW6
 AS
   SELECT WILAYAH.Provinsi
   FROM WILAYAH
   WHERE WILAYAH.Id = (
-        SELECT TOP(1)
+        SELECT 
     W.Id
   FROM WILAYAH W
     JOIN PERUSAHAAN P ON W.Id=P.IdWilayah
   GROUP BY W.Id
   ORDER BY COUNT(P.IdWilayah) DESC
-    )
-	GO
+  LIMIT 1 
+    );
+
 
 CREATE VIEW VIEW7
 AS
-  SELECT TOP (1)
+  SELECT
     WILAYAH.Provinsi
   FROM WILAYAH
   WHERE WILAYAH.Id IN(
@@ -160,14 +160,15 @@ AS
 	)
   GROUP BY WILAYAH.Provinsi
   ORDER BY COUNT(WILAYAH.Provinsi) DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW8
 AS
   SELECT PERUSAHAAN.Nama
   FROM PERUSAHAAN
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT 
     P.Id
   FROM PERUSAHAAN P
     JOIN MENGOLAH M ON P.Id=M.IdPerusahaan
@@ -177,30 +178,32 @@ AS
   WHERE SDA.Jenis='Terbarukan'
         )
   ORDER BY M.Luas DESC, P.TahunBerdiri ASC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW9
 AS
   SELECT SUMBER_DAYA_ALAM.NamaKomoditi
   FROM SUMBER_DAYA_ALAM
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT 
     P.Id
   FROM PERKEBUNAN P
   WHERE P.SuhuOptimal < (
             SELECT AVG(SuhuOptimal)
   FROM PERKEBUNAN)
   ORDER BY WaktuPanen DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW10
 AS
   SELECT SUMBER_DAYA_ALAM.NamaKomoditi
   FROM SUMBER_DAYA_ALAM
   WHERE SUMBER_DAYA_ALAM.Id IN ( 
-	SELECT TOP(1)
+	SELECT 
     BERADA_DI.IdKomoditi
   FROM BERADA_DI
   WHERE BERADA_DI.IdKomoditi IN( 
@@ -210,15 +213,16 @@ AS
 	)
   GROUP BY BERADA_DI.IdKomoditi
   ORDER BY COUNT(BERADA_DI.IdKota) DESC 
-	)
-	GO
+  LIMIT 1
+	);
+
 
 CREATE VIEW VIEW11
 AS
   SELECT SUMBER_DAYA_ALAM.NamaKomoditi
   FROM SUMBER_DAYA_ALAM
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT 
     MN.Id
   FROM MINERAL MN
     JOIN (
@@ -229,34 +233,37 @@ AS
   WHERE MN.KekerasanMohs > (SELECT AVG(KekerasanMohs)
   FROM MINERAL)
   ORDER BY olahP.countKomoditi DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW12
 AS
   SELECT SDA.NamaEnglish
   FROM SUMBER_DAYA_ALAM SDA
   WHERE SDA.Id IN( 
-	SELECT TOP(1)
+	SELECT
     TANAH.Id
   FROM TANAH
   ORDER BY TANAH.Ukuran ASC 
-	)
-	GO
+  LIMIT 1
+	);
+
 
 CREATE VIEW VIEW13
 AS
   SELECT SDA.NamaKomoditi, SDA.Jenis
   FROM SUMBER_DAYA_ALAM SDA
   WHERE SDA.Id = ( 
-	SELECT TOP(1)
+	SELECT
     T.Id
   FROM TANAH T
     JOIN KANDUNGAN_TANAH KT ON T.Id=KT.Id
   GROUP BY T.Id
   ORDER BY COUNT(*) DESC 
-	)
-	GO
+  LIMIT 1
+	);
+
 
 CREATE VIEW VIEW14
 AS
@@ -266,7 +273,7 @@ AS
 	SELECT MENGOLAH.IdKomoditi
     FROM MENGOLAH
     WHERE MENGOLAH.IdKota IN(
-	SELECT TOP(1)
+	SELECT 
       MENGOLAH.IdKota
     FROM MENGOLAH
     WHERE MENGOLAH.IdKota IN(
@@ -276,41 +283,44 @@ AS
 	)
     GROUP BY MENGOLAH.IdKota
     ORDER BY COUNT(MENGOLAH.IdKomoditi) DESC
+    LIMIT 1
 	)
 	)
     AND SUMBER_DAYA_ALAM.Id IN(
 	SELECT MINERAL.Id
     FROM MINERAL
-	)
-	GO
+	);
+
 
 CREATE VIEW VIEW15
 AS
   SELECT SUMBER_DAYA_ALAM.NamaKomoditi
   FROM SUMBER_DAYA_ALAM
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT 
     MYK.Id
   FROM MINYAK_BUMI MYK
   WHERE MYK.JumlahAtom > (SELECT AVG(JumlahAtom)
   FROM MINYAK_BUMI)
   ORDER BY MYK.TitikDidih DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW16
 AS
-  SELECT TOP(1)
+  SELECT 
     KT.Kandungan
   FROM KANDUNGAN_TANAH KT
   GROUP BY KT.Kandungan
   ORDER BY COUNT(KT.Id) DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW17
 AS
-  SELECT TOP(1)
-    SDA.NamaKomoditi, SUM(HS.Pendapatan) AS 'Pendapatan Total (Rp)'
+  SELECT 
+    SDA.NamaKomoditi, SUM(HS.Pendapatan) AS "Pendapatan Total (Rp)"
   FROM SUMBER_DAYA_ALAM SDA
     JOIN PERTAMBANGAN PR ON SDA.Id=PR.Id
     JOIN HASIL HS ON SDA.Id=HS.IdKomoditi
@@ -319,14 +329,15 @@ AS
     PR.Golongan='Senyawa Hidrokarbon'
   GROUP BY SDA.NamaKomoditi
   ORDER BY SUM(HS.Pendapatan) DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW18
 AS
   SELECT SUMBER_DAYA_ALAM.NamaKomoditi
   FROM SUMBER_DAYA_ALAM
   WHERE SUMBER_DAYA_ALAM.Id IN(
-	SELECT TOP(1)
+	SELECT 
     MENGOLAH.IdKomoditi
   FROM MENGOLAH
   WHERE MENGOLAH.IdKomoditi IN(
@@ -336,8 +347,9 @@ AS
 	)
   GROUP BY MENGOLAH.IdKomoditi
   ORDER BY COUNT(MENGOLAH.Latitude) DESC
-	)
-	GO
+  LIMIT 1
+	);
+
 
 CREATE VIEW VIEW19
 AS
@@ -349,20 +361,21 @@ AS
     FROM MENGOLAH
     WHERE MENGOLAH.JenisPengolahan = 'Di atas tanah'
       AND MENGOLAH.Luas IN(
-            SELECT TOP(1)
+            SELECT 
         MENGOLAH.Luas
       FROM MENGOLAH
       ORDER BY MENGOLAH.Luas ASC
+      LIMIT 1
         )
-    )
-	GO
+    );
+
 
 CREATE VIEW VIEW20
 AS
   SELECT SUMBER_DAYA_ALAM.NamaKomoditi
   FROM SUMBER_DAYA_ALAM
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT
     SDA.Id
   FROM SUMBER_DAYA_ALAM SDA
     JOIN HASIL H ON SDA.Id=H.IdKomoditi
@@ -374,21 +387,23 @@ AS
         )
   GROUP BY SDA.Id
   ORDER BY SUM(H.Pendapatan) DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW21
 AS
-  SELECT TOP(1)
+  SELECT 
     SDA.NamaEnglish
   FROM SUMBER_DAYA_ALAM SDA
     JOIN KEHUTANAN K ON SDA.Id=K.Id
   ORDER BY K.KepadatanKayu DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW22
 AS
-  SELECT TOP(1)
+  SELECT
     P.Alamat, sumChild
   FROM PERUSAHAAN P
     JOIN (
@@ -409,32 +424,35 @@ AS
 	)
 	)
   ORDER BY sumChild DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW23
 AS
-  SELECT TOP(1)
+  SELECT 
     NamaOlahan
   FROM PERUSAHAAN_SWASTA
   WHERE NamaOlahan IS NOT NULL
   GROUP BY NamaOlahan
   ORDER BY COUNT(*) DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW24
 AS
   SELECT PERUSAHAAN.Nama
   FROM PERUSAHAAN
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT 
     P.Id
   FROM PERUSAHAAN P
     JOIN MENGOLAH M ON P.Id=M.IdPerusahaan
   WHERE P.Jenis<>'PT'
   GROUP BY P.Id
   ORDER BY COUNT(*) DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW25
 AS
@@ -445,33 +463,35 @@ AS
   FROM MENGOLAH
   WHERE MENGOLAH.Latitude > 3 AND MENGOLAH.Latitude < 5
     AND MENGOLAH.Longitude > 90 AND MENGOLAH.Longitude < 100
-    )
-	GO
+    );
+
 
 CREATE VIEW VIEW26
 AS
-  SELECT TOP(1)
+  SELECT
     H.Tahun
   FROM HASIL H
     JOIN SUMBER_DAYA_ALAM SDA ON H.IdKomoditi=SDA.Id
   WHERE SDA.Jenis='Terbarukan'
   GROUP BY H.Tahun
   ORDER BY SUM(H.Pendapatan) DESC
-	GO
+  LIMIT 1;
+
 
 CREATE VIEW VIEW27
 AS
   SELECT PERUSAHAAN.Nama
   FROM PERUSAHAAN
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT
     P.Id
   FROM PERUSAHAAN P
     JOIN PERUSAHAAN_SWASTA PS ON P.Id=PS.Id
   WHERE P.Sektor='Migas'
   ORDER BY P.TahunBerdiri DESC
-    )
-	GO
+  LIMIT 1
+    );
+
 
 CREATE VIEW VIEW28
 AS
@@ -486,27 +506,29 @@ AS
     FROM MINERAL
     WHERE MINERAL.Kilau = 'Metalik'
         )
-    )
-	GO
+    );
+
 
 CREATE VIEW VIEW29
 AS
-  SELECT TOP(1)
+  SELECT 
     W.Provinsi
   FROM WILAYAH W
     JOIN MENGOLAH M ON W.Id=M.IdKota
   WHERE M.JenisPengolahan NOT IN ('Di atas tanah','Di bawah tanah')
-  ORDER BY M.Luas DESC;
-	GO
+  ORDER BY M.Luas DESC
+  LIMIT 1;
+
 
 CREATE VIEW VIEW30
 AS
   SELECT PERUSAHAAN.Nama
   FROM PERUSAHAAN
   WHERE Id IN (
-        SELECT TOP(1)
+        SELECT 
     T.Id
   FROM TELEPON T
   GROUP BY T.Id
   ORDER BY COUNT(T.Telepon) DESC
-    )
+  LIMIT 1
+    );

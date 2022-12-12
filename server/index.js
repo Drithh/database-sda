@@ -80,5 +80,5 @@ app.get('/get/view/:id', (req, res) => {
 });
 
 app.listen(process.env.PORT || 5000, () => {
-  console.log('Server started on port 8081');
+  console.log(`Server listening on port ${process.env.PORT || 5000}!`);
 });
