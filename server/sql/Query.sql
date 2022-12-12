@@ -1,29 +1,31 @@
 
-CREATE PROCEDURE totalGDP()
-language plpgsql
-as $$
-
-  DECLARE CustomSQL VARCHAR(500);
-  DECLARE NamaKomoditi VARCHAR(20);
+CREATE OR REPLACE FUNCTION totalGDP()
+RETURNS table (name VARCHAR(20), value numeric)
+AS $$
+  DECLARE table_name VARCHAR(20);
   
-  BEGIN
+  begin
+	drop table if exists names;
     CREATE TEMP TABLE NAMES (Name VARCHAR(20));
-    INSERT INTO NAMES VALUES ('KEHUTANAN');
-    INSERT INTO NAMES VALUES ('PERKEBUNAN');
-    INSERT INTO NAMES VALUES ('MINERAL');
-    INSERT INTO NAMES VALUES ('TANAH');
-    INSERT INTO NAMES VALUES ('MINYAK_BUMI');
+    INSERT INTO NAMES VALUES ('kehutanan');
+    INSERT INTO NAMES VALUES ('perkebunan');
+    INSERT INTO NAMES VALUES ('mineral');
+    INSERT INTO NAMES VALUES ('tanah');
+    INSERT INTO NAMES VALUES ('minyak_bumi');
 
-    FOR NamaKomoditi IN (SELECT * FROM NAMES)
+    FOR table_name IN (SELECT * FROM NAMES)
     LOOP
-      EXECUTE "SELECT SDA.NamaKomoditi AS name, SUM(H.Pendapatan) / 1000000 AS value FROM HASIL H
-        JOIN SUMBER_DAYA_ALAM SDA ON H.IdKomoditi = SDA.Id
-        WHERE H.IdKomoditi IN (SELECT Id FROM " || NamaKomoditi || ")
-        GROUP BY SDA.NamaKomoditi"
-      DELETE FROM NAMES WHERE Name = NamaKomoditi;
+  	return query execute format ('
+		SELECT SDA.NamaKomoditi AS name, (SUM(H.Pendapatan) / 1000000) value, CAST(%L AS VARCHAR(20)) AS type
+		FROM HASIL H
+	  	JOIN SUMBER_DAYA_ALAM SDA ON H.IdKomoditi = SDA.Id
+	  	WHERE H.IdKomoditi IN (SELECT Id FROM %I)
+	  	GROUP BY SDA.NamaKomoditi', table_name, table_name);
     END LOOP;
+    
 	END;
-$$
+$$ LANGUAGE plpgsql;
+
 
 CREATE VIEW topPotensi
 AS

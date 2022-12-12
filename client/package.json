@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://drithh.github.io/dataverse",
   "dependencies": {
+    "@craco/craco": "^5.9.0",
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
     "@headlessui/react": "^1.4.2",
@@ -14,22 +15,26 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "autoprefixer": "^9.8.8",
     "axios": "^0.24.0",
     "d3": "^7.2.1",
     "dotenv": "^10.0.0",
     "framer-motion": "^4.1.17",
     "http-server": "^14.0.0",
+    "postcss": "^7.0.39",
     "react": "^17.0.2",
+    "react-d3-zoomable-sunburst": "^1.0.5",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cross-env TAILWIND_MODE=watch craco  start",
+    "build": "craco   build",
+    "test": "craco test",
     "predeploy": "npm run build",
     "eject": "react-scripts eject",
     "static": "http-server --cors true build",
@@ -54,12 +59,9 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.8",
     "cross-env": "^7.0.3",
     "gh-pages": "^3.2.3",
     "immer": ">=9.0.6",
-    "postcss": "^7.0.39",
-    "stylelint-config-standard": "^24.0.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
+    "stylelint-config-standard": "^24.0.0"
   }
 }

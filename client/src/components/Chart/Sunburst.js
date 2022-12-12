@@ -15,8 +15,8 @@ export const Sunburst = ({ data }) => {
         .sum((d) => d.value)
         .sort((a, b) => b.value - a.value)
     );
-
-  const color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 5));
+  console.log(partition(data));
+  // const color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 5));
 
   const format = d3.format(',d');
 
@@ -103,6 +103,7 @@ export const Sunburst = ({ data }) => {
     .attr('class', 'text-xl')
     .attr('class', 'font-bold')
     .attr('fill', 'rgb(142,142,142');
+  console.log(root);
   return (
     <svg
       className="m-auto my-20 sunBurst"
@@ -145,7 +146,7 @@ export const Sunburst = ({ data }) => {
               dy="0.35em"
               fill="rgb(142,142,142"
             >
-              {d.data.name}
+              'test'
             </text>
           ))}
       </g>

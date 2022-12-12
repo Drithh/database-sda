@@ -30,12 +30,13 @@ export const SunburstGraph = () => {
   const [data1, setData1] = React.useState();
   useEffect(() => {
     Axios.get(urlLink + 'get/totalHasil').then((response) => {
-      templateData.children[1].children = response.data[0];
-      templateData.children[2].children = response.data[3];
-      templateData.children[0].children[0].children = response.data[1];
-      templateData.children[0].children[1].children = response.data[4];
-      templateData.children[0].children[2].children = response.data[2];
+      templateData.children[1].children = response.data.kehutanan;
+      templateData.children[2].children = response.data.perkebunan;
+      templateData.children[0].children[0].children = response.data.mineral;
+      templateData.children[0].children[1].children = response.data.tanah;
+      templateData.children[0].children[2].children = response.data.minyak_bumi;
       setData1(templateData);
+      console.log(templateData);
     });
   }, []);
   if (data1) {

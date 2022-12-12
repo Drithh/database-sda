@@ -23,9 +23,9 @@ const BasicTable = () => {
   let tableNames = GetTableName();
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
-  const [tableName, setTableName] = useState('WILAYAH');
+  const [tableName, setTableName] = useState('wilayah');
   useEffect(() => {
-    Axios.get(urlLink + 'get/table/' + tableName).then((response) => {
+    Axios.get(`${urlLink}get/table/${tableName}`).then((response) => {
       setColumns(
         Object.keys(response.data[0]).map((key) => {
           return {
@@ -82,7 +82,7 @@ const BasicTable = () => {
         onRowAdd: (newData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post(urlLink + 'post/insert/' + tableName, newData).then(
+              Axios.post(`${urlLink}post/insert/${tableName}`, newData).then(
                 (response) => {
                   if (response.data === 1) {
                     setData([...data, newData]);
@@ -101,7 +101,7 @@ const BasicTable = () => {
           return new Promise((resolve, reject) => {
             const index = oldData.tableData.id;
             setTimeout(() => {
-              Axios.post(urlLink + 'post/delete/' + tableName, oldData).then(
+              Axios.post(`${urlLink}post/delete/${tableName}`, oldData).then(
                 (response) => {
                   if (response.data === 1) {
                     setData(data.filter((row, i) => i !== index));
@@ -119,7 +119,7 @@ const BasicTable = () => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              Axios.post(urlLink + 'post/update/' + tableName, [
+              Axios.post(`${urlLink}post/update/${tableName}`, [
                 newData,
                 oldData,
               ]).then((response) => {
