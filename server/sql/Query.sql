@@ -1,6 +1,5 @@
-
 CREATE OR REPLACE FUNCTION totalGDP()
-RETURNS table (name VARCHAR(20), value numeric)
+RETURNS table (name VARCHAR(20), value numeric, type VARCHAR(20))
 AS $$
   DECLARE table_name VARCHAR(20);
   

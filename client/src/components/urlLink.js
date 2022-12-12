@@ -1,2 +1,2 @@
-export const urlLink = 'http://localhost:5000/';
+export const urlLink = 'https://dataverse-webserver.fly.dev/';
 // export const urlLink = 'https://api.apasih.site/';
