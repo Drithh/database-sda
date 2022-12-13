@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://drithh.github.io/dataverse",
+  "homepage": "http://drithh.github.io",
   "dependencies": {
     "@craco/craco": "^5.9.0",
     "@emotion/react": "^11.7.0",
